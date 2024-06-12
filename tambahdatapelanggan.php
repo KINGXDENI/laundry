@@ -39,22 +39,22 @@ if (isset($_SESSION['id'])) {
                 <div class="card-body">
                   <form action="proses-tambah-pelanggan.php" method="POST">
                     <div class="form-group">
-                      <label>No. Identitas</label>
-                      <input type="text" class="form-control" name="No_Identitas" placeholder="No. Identitas" style="width: 250px">
+                      <label for="No_Identitas">No. Identitas</label>
+                      <input type="text" name="No_Identitas" class="form-control" id="basicInput" placeholder="Masukan No. Identitas">
                     </div>
                     <div class="form-group">
                       <label>Nama</label>
-                      <input type="text" class="form-control" name="Nama" placeholder="Nama" style="width: 250px">
+                      <input type="text" class="form-control" name="Nama" placeholder="Masukan Nama">
                     </div>
                     <div class="form-group">
                       <label>Alamat</label>
-                      <input type="text" class="form-control" name="Alamat" placeholder="Alamat" style="width: 250px">
+                      <input type="text" class="form-control" name="Alamat" placeholder="Masukan Alamat">
                     </div>
                     <div class="form-group">
                       <label>No. Hp</label>
-                      <input type="text" class="form-control" name="No_Hp" placeholder="No. Hp" style="width: 250px">
+                      <input type="text" class="form-control" name="No_Hp" placeholder="Masukan No. Hp">
                     </div>
-                    <input type="submit" name="submit" value="Simpan" class="btn btn-success">
+                    <input type="submit" name="submit" value="Simpan" class="btn btn-primary">
                     <a href="pelanggan.php"><input type="button" class="btn btn-danger" value="Batal"></a>
                   </form>
                 </div>
@@ -62,46 +62,36 @@ if (isset($_SESSION['id'])) {
             </div>
         </div>
         </section>
+        <?php
+        include "include/footer.php";
+        ?>
       </div>
+    </div>
 
-      <footer>
-        <div class="footer clearfix mb-0 text-muted">
-          <div class="float-start">
-            <p>2023 &copy; Mazer</p>
-          </div>
-          <div class="float-end">
-            <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-              by <a href="https://saugi.me">Saugi</a></p>
-          </div>
-        </div>
-      </footer>
-    </div>
-    </div>
-    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Event listener untuk tombol burger
-            var burgerBtn = document.querySelector('.burger-btn');
-            var sidebar = document.querySelector('#sidebar');
-            if (burgerBtn) {
-                burgerBtn.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    sidebar.classList.toggle('active');
-                });
-            }
+      document.addEventListener('DOMContentLoaded', function() {
+        // Event listener untuk tombol burger
+        var burgerBtn = document.querySelector('.burger-btn');
+        var sidebar = document.querySelector('#sidebar');
+        if (burgerBtn) {
+          burgerBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            sidebar.classList.toggle('active');
+          });
+        }
 
-            // Event listener untuk tombol close (sidebar-toggler)
-            var sidebarHideBtn = document.querySelector('.sidebar-hide');
-            if (sidebarHideBtn) {
-                sidebarHideBtn.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    sidebar.classList.remove('active');
-                });
-            }
-        });
+        // Event listener untuk tombol close (sidebar-toggler)
+        var sidebarHideBtn = document.querySelector('.sidebar-hide');
+        if (sidebarHideBtn) {
+          sidebarHideBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            sidebar.classList.remove('active');
+          });
+        }
+      });
     </script>
   </body>
-  <?php
+<?php
 } else {
   header("location:login/index.php");
 }
