@@ -70,7 +70,9 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                         <span>Data Transaksi</span>
                     </a>
                 </li>
-                <li class="sidebar-item <?php echo ($halaman_saat_ini == 'pakaian.php') ? 'active' : ''; ?>">
+                <li class="sidebar-item <?php echo ($halaman_saat_ini == 'pakaian.php'
+                                            || $halaman_saat_ini == 'tambahdatapakaian.php'
+                                            || $halaman_saat_ini == 'editdatapakaian.php') ? 'active' : ''; ?>">
                     <a href="pakaian.php" class="sidebar-link">
                         <i class="bi bi-grid-fill"></i>
                         <span>Data Pakaian</span>

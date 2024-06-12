@@ -33,7 +33,7 @@ if (isset($_SESSION['id'])) {
         </header>
 
         <div class="page-heading">
-          <h3>Data Pelanggan</h3>
+          <h3>Data Transaksi</h3>
         </div>
         <div class="page-content">
           <section class="row">
@@ -84,9 +84,9 @@ if (isset($_SESSION['id'])) {
                               <?php
                               }
                               ?>
-                              <a href="download-laporan.php?cetak=<?php echo $hasil['No_Order']; ?>" class="btn btn-info"><i class="bi bi-printer"></i></a>
-                              <a href="editdatatransaksi.php?edit=<?php echo $hasil['No_Order']; ?>" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                              <a href="javascript:void(0)" class="btn btn-danger" onclick="confirmDelete('<?php echo $hasil['No_Order']; ?>')"><i class="bi bi-trash"></i></a>
+                              <a href="download-laporan.php?cetak=<?php echo $hasil['No_Order']; ?>" class="btn btn-info"><i class="bi bi-printer"></i></a><br>
+                              <a href="editdatatransaksi.php?edit=<?php echo $hasil['No_Order']; ?>" class="btn btn-warning mt-2"><i class="bi bi-pencil-square"></i></a>
+                              <a href="javascript:void(0)" class="btn btn-danger mt-2" onclick="confirmDelete('<?php echo $hasil['No_Order']; ?>')"><i class="bi bi-trash"></i></a>
                             </td>
                             </td>
                           </tr>
