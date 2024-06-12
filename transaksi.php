@@ -13,6 +13,9 @@ if (isset($_SESSION['id'])) {
     <?php
     include "include/header.php";
     ?>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
   </head>
 
   <body>
@@ -66,9 +69,10 @@ if (isset($_SESSION['id'])) {
                             <td><?php echo $hasil['Nama']; ?></td>
                             <td><?php echo $hasil['Tgl_Terima']; ?></td>
                             <td><?php echo $hasil['Tgl_Ambil']; ?></td>
-                            <td><?php echo $hasil['total_berat']; ?></td>
-                            <td><?php echo $hasil['diskon']; ?></td>
-                            <td><?php echo $hasil['Total_Bayar']; ?></td>
+                            <td><?php echo $hasil['total_berat'] . ' Kg'; ?></td>
+                            <td><?php echo $hasil['diskon'] . '%'; ?></td>
+                            <td><?php echo 'Rp ' . number_format($hasil['Total_Bayar'], 0, ',', '.'); ?>
+                            </td>
                             <td style="text-align: center;">
                               <?php if ($hasil['Tgl_Ambil'] == "") {
                               ?>
@@ -82,7 +86,8 @@ if (isset($_SESSION['id'])) {
                               ?>
                               <a href="download-laporan.php?cetak=<?php echo $hasil['No_Order']; ?>" class="btn btn-info"><i class="bi bi-printer"></i></a>
                               <a href="editdatatransaksi.php?edit=<?php echo $hasil['No_Order']; ?>" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                              <a href="proses-hapus-transaksi.php?hapus=<?php echo $hasil['No_Order']; ?>" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                              <a href="javascript:void(0)" class="btn btn-danger" onclick="confirmDelete('<?php echo $hasil['No_Order']; ?>')"><i class="bi bi-trash"></i></a>
+                            </td>
                             </td>
                           </tr>
                         <?php
@@ -105,11 +110,27 @@ if (isset($_SESSION['id'])) {
       </div>
     </div>
 
-
     <script>
       $(document).ready(function() {
         $('#table').DataTable();
       });
+
+      function confirmDelete(id) {
+        Swal.fire({
+          title: 'Apakah Anda yakin?',
+          text: "Anda tidak akan dapat mengembalikan ini!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Ya, hapus!',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = 'proses-hapus-transaksi.php?hapus=' + id;
+          }
+        });
+      }
     </script>
 
     <script>
