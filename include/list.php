@@ -60,13 +60,19 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                 </li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'tambahdatatransaksi.php') ? 'active' : ''; ?>">
                     <a href="tambahdatatransaksi.php" class="sidebar-link">
-                        <i class="bi bi-grid-fill"></i>
+                        <i class="bi bi-cart-fill"></i>
                         <span>Transaksi Laundry</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?php echo ($halaman_saat_ini == 'layanan.php') ? 'active' : ''; ?>">
+                    <a href="layanan.php" class="sidebar-link">
+                        <i class="bi bi-menu-button-wide-fill"></i>
+                        <span>Layanan</span>
                     </a>
                 </li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'transaksi.php') ? 'active' : ''; ?>">
                     <a href="transaksi.php" class="sidebar-link">
-                        <i class="bi bi-grid-fill"></i>
+                        <i class="bi bi-file-earmark-text-fill"></i>
                         <span>Data Transaksi</span>
                     </a>
                 </li>
@@ -74,7 +80,7 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                                             || $halaman_saat_ini == 'tambahdatapakaian.php'
                                             || $halaman_saat_ini == 'editdatapakaian.php') ? 'active' : ''; ?>">
                     <a href="pakaian.php" class="sidebar-link">
-                        <i class="bi bi-grid-fill"></i>
+                        <i class="bi bi-file-earmark-text-fill"></i>
                         <span>Data Pakaian</span>
                     </a>
                 </li>
