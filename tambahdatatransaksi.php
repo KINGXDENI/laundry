@@ -36,10 +36,10 @@ if (isset($_SESSION['id'])) {
                                         <div class="col-md-6">
                                             <form name="form" action="proses-tambah-transaksi.php" method="POST">
                                                 <?php
-                                        include "./include/koneksi.php";
-                                        $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi ORDER BY No_Order DESC LIMIT 1");
-                                        while ($hasil = mysqli_fetch_array($sql)) {
-                                        ?>
+                                                    include "./include/koneksi.php";
+                                                    $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi ORDER BY No_Order DESC LIMIT 1");
+                                                    while ($hasil = mysqli_fetch_array($sql)) {
+                                                    ?>
                                                 <div class="form-group">
                                                     <label>No. Order</label>
                                                     <input type="text" class="form-control" name="No_Order"
@@ -50,9 +50,9 @@ if (isset($_SESSION['id'])) {
                                                     <label>Nama Pelanggan</label>
                                                     <select class="form-control" name="No_Identitas">
                                                         <?php
-                                                $sql = mysqli_query($conn, "SELECT No_Identitas, Nama FROM pelanggan ORDER BY Nama");
-                                                while ($hasil = mysqli_fetch_array($sql)) {
-                                                ?>
+                                                            $sql = mysqli_query($conn, "SELECT No_Identitas, Nama FROM pelanggan ORDER BY Nama");
+                                                            while ($hasil = mysqli_fetch_array($sql)) {
+                                                            ?>
                                                         <option value="<?php echo $hasil['No_Identitas']; ?>">
                                                             <?php echo $hasil['Nama']; ?></option>
                                                         <?php } ?>
@@ -103,16 +103,16 @@ if (isset($_SESSION['id'])) {
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi ORDER BY No_Order DESC LIMIT 1");
-                                                while ($hasil = mysqli_fetch_array($sql)) {
-                                                    $no = $hasil['No_Order'];
-                                                }
+                                                            $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi ORDER BY No_Order DESC LIMIT 1");
+                                                            while ($hasil = mysqli_fetch_array($sql)) {
+                                                                $no = $hasil['No_Order'];
+                                                            }
 
-                                                $no_o = $no + 1;
-                                                $i = 1;
-                                                $sql = mysqli_query($conn, "SELECT pakaian.Jenis_Pakaian, detail_transaksi.No_Order, detail_transaksi.Id_Pakaian, detail_transaksi.Jumlah_pakaian FROM detail_transaksi JOIN pakaian ON detail_transaksi.Id_Pakaian = pakaian.Id_Pakaian WHERE No_Order = $no_o");
-                                                while ($hasil = mysqli_fetch_array($sql)) {
-                                                ?>
+                                                            $no_o = $no + 1;
+                                                            $i = 1;
+                                                            $sql = mysqli_query($conn, "SELECT pakaian.Jenis_Pakaian, detail_transaksi.No_Order, detail_transaksi.Id_Pakaian, detail_transaksi.Jumlah_pakaian FROM detail_transaksi JOIN pakaian ON detail_transaksi.Id_Pakaian = pakaian.Id_Pakaian WHERE No_Order = $no_o");
+                                                            while ($hasil = mysqli_fetch_array($sql)) {
+                                                            ?>
                                                         <tr>
                                                             <td style="text-align: center;"><?php echo $i; ?></td>
                                                             <td><?php echo $hasil['Jenis_Pakaian']; ?></td>
@@ -123,9 +123,9 @@ if (isset($_SESSION['id'])) {
                                                             </td>
                                                         </tr>
                                                         <?php
-                                                    $i++;
-                                                }
-                                                ?>
+                                                                $i++;
+                                                            }
+                                                            ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -140,17 +140,9 @@ if (isset($_SESSION['id'])) {
                 </section>
             </div>
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2023 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span> by <a
-                                href="https://saugi.me">Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+            <?php
+                include "include/footer.php";
+                ?>
         </div>
     </div>
 </body>
