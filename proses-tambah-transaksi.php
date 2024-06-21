@@ -1,26 +1,36 @@
 <?php
 include "include/koneksi.php";
 
-$No_Order = $_POST["No_Order"];
-$No_Identitas = $_POST["No_Identitas"];
-$total_berat = $_POST["total_berat"];
-$diskon = $_POST["diskon"];
-$total_bayar = $_POST["total_bayar"];
-$Tgl_Terima = $_POST["tanggal"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	$No_Order = $_POST["No_Order"];
+	$No_Identitas = $_POST["No_Identitas"];
+	$id_layanan = $_POST["id_layanan"];
+	$total_berat = $_POST["total_berat"];
+	$diskon = isset($_POST["diskon"]) ? $_POST["diskon"] : null;
+	$total_bayar = $_POST["total_bayar"];
+	$Tgl_Terima = $_POST["tanggal"];
+	$harga_per_kg = $_POST["harga_per_kg"];
 
-// if(empty($_POST["No_Order"]) || empty($_POST["No_Identitas"]) || empty($_POST["total_berat"]) || empty($_POST["diskon"]) || empty($_POST["total_bayar"]) || empty($_POST["tanggal"])){
-// 	echo "<script language='javascript'>alert('Gagal di tambahkan');</script>";
-// 	// echo '<meta http-equiv="refresh" content="0; url=tambahdatatransaksi.php">';
-// }else{
-if(empty($_POST["No_Order"]) || empty($_POST["No_Identitas"]) || empty($_POST["total_berat"]) || empty($_POST["total_bayar"]) || empty($_POST["tanggal"])){
-	echo "<script language='javascript'>alert('Gagal di tambahkan');</script>";
-	echo '<meta http-equiv="refresh" content="0; url=tambahdatatransaksi.php">';
-}else{
-	$sql = "INSERT INTO `transaksi` (`No_Order`, `No_Identitas`, `Tgl_Terima`, `Tgl_Ambil`, `total_berat`, `diskon`, `Total_Bayar`)
-			VALUES ('$No_Order', '$No_Identitas', '$Tgl_Terima', NULL, '$total_berat', '$diskon', '$total_bayar')";
-			$kueri = mysqli_query($conn, $sql);
+	// Pastikan semua data yang diperlukan tidak kosong
+	if (empty($No_Order) || empty($No_Identitas) || empty($id_layanan) || empty($total_berat) || empty($total_bayar) || empty($Tgl_Terima)) {
+		// Pesan error jika ada data yang kosong
+		echo "<script language='javascript'>alert('Semua data harus diisi!');</script>";
+		echo '<meta http-equiv="refresh" content="0; url=tambahdatatransaksi.php">';
+	} else {
+		// Query INSERT ke dalam tabel transaksi
+		// Gunakan mysqli_real_escape_string atau parameterized query untuk menghindari SQL Injection
+		$diskon = mysqli_real_escape_string($conn, $diskon);
+		$sql = "INSERT INTO `transaksi` (`No_Order`, `No_Identitas`, `id_layanan`, `Tgl_Terima`, `Tgl_Ambil`, `total_berat`, `diskon`, `Total_Bayar`)
+                VALUES ('$No_Order', '$No_Identitas', '$id_layanan', '$Tgl_Terima', NULL, '$total_berat', '$diskon', '$total_bayar')";
+
+		$kueri = mysqli_query($conn, $sql);
+
+		// Periksa apakah query INSERT berhasil atau tidak
+		if ($kueri) {
 			echo "<script language='javascript'>alert('Berhasil di tambahkan');</script>";
-			echo '<meta http-equiv="refresh" content="0; url=transaksi?>">';
+			echo '<meta http-equiv="refresh" content="0; url=transaksi.php">';
+		} else {
+			echo "Error: " . mysqli_error($conn); // Tampilkan pesan error dari MySQL
+		}
+	}
 }
-
-?>

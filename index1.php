@@ -66,60 +66,71 @@ if (isset($_SESSION['id'])) {
                                 $result_transaksi = mysqli_query($conn, $query_transaksi);
                                 $data_transaksi = mysqli_fetch_assoc($result_transaksi);
                                 $total_transaksi = $data_transaksi['total_transaksi'];
+
+                                // Query untuk menghitung jumlah layanan
+                                $query_layanan = "SELECT COUNT(*) AS total_layanan FROM layanan";
+                                $result_layanan = mysqli_query($conn, $query_layanan);
+                                $data_layanan = mysqli_fetch_assoc($result_layanan);
+                                $total_layanan = $data_layanan['total_layanan'];
                                 ?>
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-xxl-4 d-flex justify-content-start">
-                                                <div class="stats-icon purple mb-0">
-                                                    <i class="iconly-boldUser"></i>
+                                <a href="pelanggan.php">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div class="col-xxl-4 d-flex justify-content-start">
+                                                    <div class="stats-icon purple mb-2">
+                                                        <i class="iconly-boldUser"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xxl-8">
-                                                <h6 class="text-muted font-semibold">Jumlah Pelanggan</h6>
-                                                <h6 class="font-extrabold mb-0"><?php echo $total_pelanggan; ?></h6>
+                                                <div class="col-xxl-8">
+                                                    <h6 class="text-muted font-semibold">Jumlah Pelanggan</h6>
+                                                    <h6 class="font-extrabold mb-0"><?php echo $total_pelanggan; ?></h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
 
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-xxl-4 d-flex justify-content-start">
-                                                <div class="stats-icon blue mb-0">
-                                                    <i class="iconly-boldDocument"></i> <!-- Mengganti ikon -->
+                                <a href="transaksi.php">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div class="col-xxl-4 d-flex justify-content-start">
+                                                    <div class="stats-icon blue mb-2">
+                                                        <i class="iconly-boldDocument"></i> <!-- Mengganti ikon -->
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xxl-8">
-                                                <h6 class="text-muted font-semibold">Jumlah Transaksi</h6>
-                                                <h6 class="font-extrabold mb-0"><?php echo $total_transaksi; ?></h6>
+                                                <div class="col-xxl-8">
+                                                    <h6 class="text-muted font-semibold">Jumlah Transaksi</h6>
+                                                    <h6 class="font-extrabold mb-0"><?php echo $total_transaksi; ?></h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
 
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div
-                                                class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                                <div class="stats-icon green mb-2">
-                                                    <i class="iconly-boldAdd-User"></i>
+                                <a href="layanan.php">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div class="col-xxl-4 d-flex justify-content-start">
+                                                    <div class="stats-icon green mb-2">
+                                                        <i class="iconly-boldAdd-User"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">Following</h6>
-                                                <h6 class="font-extrabold mb-0">80.000</h6>
+                                                <div class="col-xxl-8">
+                                                    <h6 class="text-muted font-semibold">Layanan</h6>
+                                                    <h6 class="font-extrabold mb-0"><?php echo $total_layanan; ?></h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-6 col-lg-3 col-md-6">
                                 <div class="card">

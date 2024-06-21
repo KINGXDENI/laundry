@@ -11,8 +11,8 @@ if (isset($_SESSION['id'])) {
     <title>Amanah Laundry</title>
 
     <?php
-    include "include/header.php";
-    ?>
+        include "include/header.php";
+        ?>
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
@@ -23,8 +23,8 @@ if (isset($_SESSION['id'])) {
     <div id="app">
 
         <?php
-      include "include/list.php";
-      ?>
+            include "include/list.php";
+            ?>
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -47,6 +47,7 @@ if (isset($_SESSION['id'])) {
                                                 <th style="text-align: center;">No</th>
                                                 <th>No. Order</th>
                                                 <th>Nama</th>
+                                                <th>Layanan</th>
                                                 <th>Tanggal Terima</th>
                                                 <th>Tanggal Ambil</th>
                                                 <th>Berat</th>
@@ -58,15 +59,20 @@ if (isset($_SESSION['id'])) {
 
                                         <tbody>
                                             <?php
-                        include "./include/koneksi.php";
-                        $i = 0 + 1;
-                        $sql = mysqli_query($conn, "SELECT transaksi.*, pelanggan.Nama FROM transaksi join pelanggan where transaksi.No_Identitas = pelanggan.No_Identitas  ORDER BY `No_Order` DESC");
-                        while ($hasil = mysqli_fetch_array($sql)) {
-                        ?>
+                                                include "./include/koneksi.php";
+                                                $i = 0 + 1;
+                                                $sql = mysqli_query($conn, "SELECT transaksi.*, pelanggan.Nama, layanan.nama_layanan 
+                                                    FROM transaksi 
+                                                    JOIN pelanggan ON transaksi.No_Identitas = pelanggan.No_Identitas
+                                                    LEFT JOIN layanan ON transaksi.id_layanan = layanan.id_layanan
+                                                    ORDER BY `No_Order` DESC");
+                                                while ($hasil = mysqli_fetch_array($sql)) {
+                                                ?>
                                             <tr>
                                                 <td style="text-align: center;"><?php echo $i; ?></td>
                                                 <td><?php echo $hasil['No_Order']; ?></td>
                                                 <td><?php echo $hasil['Nama']; ?></td>
+                                                <td><?php echo $hasil['nama_layanan'] ?></td>
                                                 <td><?php echo $hasil['Tgl_Terima']; ?></td>
                                                 <td><?php echo $hasil['Tgl_Ambil']; ?></td>
                                                 <td><?php echo $hasil['total_berat'] . ' Kg'; ?></td>
@@ -75,17 +81,17 @@ if (isset($_SESSION['id'])) {
                                                 </td>
                                                 <td style="text-align: center;">
                                                     <?php if ($hasil['Tgl_Ambil'] == "") {
-                              ?>
+                                                            ?>
                                                     <a href="proses-Konfirmasi.php?No_Order=<?php echo $hasil['No_Order']; ?>"
                                                         class="btn btn-primary"><i class="bi bi-check2-circle"></i></a>
                                                     <?php
-                              } else {
-                              ?>
+                                                            } else {
+                                                            ?>
                                                     <a href="#" class="btn btn-primary"><i
                                                             class="bi bi-check2-circle"></i></a>
                                                     <?php
-                              }
-                              ?>
+                                                            }
+                                                            ?>
                                                     <a href="download-laporan.php?cetak=<?php echo $hasil['No_Order']; ?>"
                                                         class="btn btn-info"><i class="bi bi-printer"></i></a><br>
                                                     <a href="editdatatransaksi.php?edit=<?php echo $hasil['No_Order']; ?>"
@@ -98,9 +104,9 @@ if (isset($_SESSION['id'])) {
                                                 </td>
                                             </tr>
                                             <?php
-                          $i++;
-                        }
-                        ?>
+                                                    $i++;
+                                                }
+                                                ?>
 
                                         </tbody>
                                     </table>
@@ -112,8 +118,8 @@ if (isset($_SESSION['id'])) {
             </div>
 
             <?php
-        include "include/footer.php";
-        ?>
+                include "include/footer.php";
+                ?>
         </div>
     </div>
 
@@ -167,6 +173,6 @@ if (isset($_SESSION['id'])) {
 </html>
 <?php
 } else {
-  header("location:login/index.php");
+    header("location:login/index.php");
 }
 ?>

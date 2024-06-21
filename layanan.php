@@ -44,44 +44,47 @@ if (isset($_SESSION['id'])) {
                                     <a href="layanan_tambah.php"><button type="button"
                                             class="btn btn-primary btn-md">Tambah Data</button></a>
                                 </div>
-                                <table id="table" class="table table-striped table-bordered table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Layanan</th>
-                                            <th>Deskripsi</th>
-                                            <th>Harga</th>
-                                            <th>Estimasi Waktu</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                            include "./include/koneksi.php";
-                                            $i = 1;
-                                            $sql = mysqli_query($conn, "SELECT * FROM layanan ORDER BY `id_layanan`");
-                                            while ($hasil = mysqli_fetch_array($sql)) {
-                                            ?>
-                                        <tr>
-                                            <td><?php echo $i++; ?></td>
-                                            <td><?php echo $hasil['nama_layanan']; ?></td>
-                                            <td><?php echo $hasil['deskripsi']; ?></td>
-                                            <td><?php echo 'Rp ' . number_format($hasil['harga'], 0, ',', '.'); ?></td>
-                                            <td><?php echo $hasil['estimasi_waktu'] . ' jam'; ?></td>
-                                            <td>
-                                                <a href="layanan_edit.php?edit=<?php echo $hasil['id_layanan']; ?>"
-                                                    class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                                                <a href="#" class="btn btn-danger delete-btn"
-                                                    data-id="<?php echo $hasil['id_layanan']; ?>"
-                                                    onclick="confirmDelete(<?php echo $hasil['id_layanan']; ?>)"><i
-                                                        class="bi bi-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                            }
-                                            ?>
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table id="table" class="table table-striped table-bordered table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Layanan</th>
+                                                <th>Deskripsi</th>
+                                                <th>Harga</th>
+                                                <th>Estimasi Waktu</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                                include "./include/koneksi.php";
+                                                $i = 1;
+                                                $sql = mysqli_query($conn, "SELECT * FROM layanan ORDER BY `id_layanan`");
+                                                while ($hasil = mysqli_fetch_array($sql)) {
+                                                ?>
+                                            <tr>
+                                                <td><?php echo $i++; ?></td>
+                                                <td><?php echo $hasil['nama_layanan']; ?></td>
+                                                <td><?php echo $hasil['deskripsi']; ?></td>
+                                                <td><?php echo 'Rp ' . number_format($hasil['harga'], 0, ',', '.'); ?>
+                                                </td>
+                                                <td><?php echo $hasil['estimasi_waktu']; ?></td>
+                                                <td>
+                                                    <a href="layanan_edit.php?edit=<?php echo $hasil['id_layanan']; ?>"
+                                                        class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                                    <a href="#" class="btn btn-danger delete-btn"
+                                                        data-id="<?php echo $hasil['id_layanan']; ?>"
+                                                        onclick="confirmDelete(<?php echo $hasil['id_layanan']; ?>)"><i
+                                                            class="bi bi-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                                }
+                                                ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

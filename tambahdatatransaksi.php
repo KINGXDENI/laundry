@@ -41,23 +41,53 @@ if (isset($_SESSION['id'])) {
                                                     while ($hasil = mysqli_fetch_array($sql)) {
                                                     ?>
                                                 <div class="form-group">
-                                                    <label>No. Order</label>
-                                                    <input type="text" class="form-control" name="No_Order"
-                                                        value="<?php echo $hasil['No_Order']; ?>" readonly>
+                                                    <label for="No_Order">No. Order</label>
+                                                    <input type="text" class="form-control" id="No_Order"
+                                                        name="No_Order">
                                                 </div>
                                                 <?php } ?>
                                                 <div class="form-group">
-                                                    <label>Nama Pelanggan</label>
-                                                    <select class="form-control" name="No_Identitas">
-                                                        <?php
-                                                            $sql = mysqli_query($conn, "SELECT No_Identitas, Nama FROM pelanggan ORDER BY Nama");
-                                                            while ($hasil = mysqli_fetch_array($sql)) {
-                                                            ?>
-                                                        <option value="<?php echo $hasil['No_Identitas']; ?>">
-                                                            <?php echo $hasil['Nama']; ?></option>
-                                                        <?php } ?>
-                                                    </select>
+                                                    <fieldset class="form-group">
+                                                        <label>Nama Pelanggan</label>
+                                                        <select class="form-select" id="basicSelect"
+                                                            name="No_Identitas">
+                                                            <option value="#">----- Pilih Nama Pelanggan -----</option>
+                                                            <?php
+                                                                $sql = mysqli_query($conn, "SELECT No_Identitas, Nama FROM pelanggan ORDER BY Nama");
+                                                                while ($hasil = mysqli_fetch_array($sql)) {
+                                                                ?>
+
+                                                            <option value="<?php echo $hasil['No_Identitas'];  ?> ">
+                                                                <?php echo $hasil['Nama']; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </fieldset>
                                                 </div>
+                                                <div class="form-group">
+                                                    <fieldset class="form-group">
+                                                        <label>Layanan</label>
+                                                        <select class="form-select" id="layananSelect" name="id_layanan"
+                                                            onchange="updateTotal()">
+                                                            <option value="">----- Pilih Layanan -----</option>
+                                                            <?php
+                                                                $sql = mysqli_query($conn, "SELECT id_layanan, nama_layanan, harga FROM layanan ORDER BY nama_layanan");
+                                                                while ($hasil = mysqli_fetch_array($sql)) {
+                                                                ?>
+                                                            <option value="<?php echo $hasil['id_layanan']; ?>"
+                                                                data-harga="<?php echo $hasil['harga']; ?>">
+                                                                <?php echo $hasil['nama_layanan']; ?>
+                                                            </option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="harga_per_kg">Harga per Kg:</label>
+                                                    <input type="text" class="form-control" id="harga_per_kg"
+                                                        name="harga_per_kg" readonly>
+                                                </div>
+
+
                                                 <div class="form-group">
                                                     <label>Total Berat</label>
                                                     <input type="text" id="total_berat" class="form-control"
@@ -66,7 +96,7 @@ if (isset($_SESSION['id'])) {
                                                 <div class="form-group">
                                                     <label>Diskon</label>
                                                     <input type="text" id="diskon" class="form-control" name="diskon"
-                                                        placeholder="Diskon" value="0">
+                                                        placeholder="Diskon">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Total Bayar</label>
@@ -78,7 +108,7 @@ if (isset($_SESSION['id'])) {
                                                     class="btn btn-primary" />
                                                 <input type="submit" name="submit" value="Simpan"
                                                     class="btn btn-success">
-                                                <a href="transaksi.php"><input type="button" class="btn btn-default"
+                                                <a href="transaksi.php"><input type="button" class="btn btn-danger"
                                                         value="Batal"></a>
                                             </form>
                                         </div>
@@ -145,6 +175,57 @@ if (isset($_SESSION['id'])) {
                 ?>
         </div>
     </div>
+
+
+    <script>
+    function updateTotal() {
+        var layananSelect = document.getElementById('layananSelect');
+        var totalBeratInput = document.getElementById('total_berat');
+        var diskonInput = document.getElementById('diskon');
+        var totalBayarInput = document.getElementsByName('total_bayar')[0];
+
+        var hargaPerKg = layananSelect.options[layananSelect.selectedIndex].getAttribute('data-harga');
+        var totalBerat = parseFloat(totalBeratInput.value);
+        var diskon = parseFloat(diskonInput.value);
+
+        if (!isNaN(hargaPerKg) && !isNaN(totalBerat)) {
+            var totalBayar = hargaPerKg * totalBerat;
+            if (!isNaN(diskon)) {
+                totalBayar -= diskon;
+            }
+            totalBayarInput.value = totalBayar.toFixed(2);
+        } else {
+            totalBayarInput.value = '';
+        }
+    }
+
+    function tambah() {
+        updateTotal();
+    }
+    </script>
+
+    <script>
+    // Function to update harga_per_kg field based on selected service
+    function updateHarga() {
+        var layananSelect = document.getElementById('layananSelect');
+        var hargaPerKgInput = document.getElementById('harga_per_kg');
+
+        var hargaPerKg = layananSelect.options[layananSelect.selectedIndex].getAttribute('data-harga');
+
+        if (!isNaN(hargaPerKg)) {
+            hargaPerKgInput.value = hargaPerKg;
+        } else {
+            hargaPerKgInput.value = '';
+        }
+    }
+
+    // Call updateHarga function when layananSelect changes
+    $('#layananSelect').change(function() {
+        updateHarga();
+    });
+    </script>
+
+
 </body>
 
 </html>
