@@ -38,9 +38,6 @@
     type="image/png">
 
 
-
-
-
 <link rel="stylesheet" href="./assets/compiled/css/app.css">
 <link rel="stylesheet" href="./assets/compiled/css/app-dark.css">
 <link rel="stylesheet" href="./assets/compiled/css/iconly.css">
@@ -48,8 +45,16 @@
 <script src="assets/static/js/components/dark.js"></script>
 <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 
+<!-- Bootstrap CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <script src="assets/compiled/js/app.js"></script>
+
 
 
 <!-- DataTables -->

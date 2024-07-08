@@ -16,6 +16,9 @@ if (isset($_SESSION['id'])) {
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 </head>
 
@@ -59,10 +62,10 @@ if (isset($_SESSION['id'])) {
                                                 include "./include/koneksi.php";
                                                 $i = 1;
                                                 $sql = mysqli_query($conn, "SELECT transaksi.*, pelanggan.Nama, layanan.nama_layanan 
-                        FROM transaksi 
-                        JOIN pelanggan ON transaksi.No_Identitas = pelanggan.No_Identitas
-                        LEFT JOIN layanan ON transaksi.id_layanan = layanan.id_layanan
-                        ORDER BY `No_Order` DESC");
+                                    FROM transaksi 
+                                    JOIN pelanggan ON transaksi.No_Identitas = pelanggan.No_Identitas
+                                    LEFT JOIN layanan ON transaksi.id_layanan = layanan.id_layanan
+                                    ORDER BY `No_Order` DESC");
                                                 while ($hasil = mysqli_fetch_array($sql)) {
                                                 ?>
                                             <tr>
@@ -93,96 +96,50 @@ if (isset($_SESSION['id'])) {
                                                             class="bi bi-eye"></i></button>
                                                 </td>
                                             </tr>
+                                            <!-- Modal for each transaction -->
+                                            <div class="modal fade"
+                                                id="transactionModal<?php echo $hasil['No_Order']; ?>" tabindex="-1"
+                                                role="dialog" aria-labelledby="transactionModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="transactionModalLabel">Detail
+                                                                Transaksi</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>ID Transaksi: <?php echo $hasil['No_Order']; ?></p>
+                                                            <p>Nama: <?php echo $hasil['Nama']; ?></p>
+                                                            <p>Layanan: <?php echo $hasil['nama_layanan']; ?></p>
+                                                            <p>Tanggal Terima: <?php echo $hasil['Tgl_Terima']; ?></p>
+                                                            <p>Tanggal Ambil: <?php echo $hasil['Tgl_Ambil']; ?></p>
+                                                            <p>Berat: <?php echo $hasil['total_berat'] . ' Kg'; ?></p>
+                                                            <p>Diskon: <?php echo $hasil['diskon'] . '%'; ?></p>
+                                                            <p>Total Bayar:
+                                                                <?php echo 'Rp ' . number_format($hasil['Total_Bayar'], 0, ',', '.'); ?>
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <a href="download-laporan.php?cetak=<?php echo $hasil['No_Order']; ?>"
+                                                                class="btn btn-info"><i
+                                                                    class="bi bi-printer"></i></a><br>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <?php
                                                     $i++;
                                                 }
                                                 ?>
                                         </tbody>
                                     </table>
-
-                                    <?php
-                                        // Kode modal diluar dari loop
-                                        $sql = mysqli_query($conn, "SELECT transaksi.*, pelanggan.Nama, layanan.nama_layanan 
-                    FROM transaksi 
-                    JOIN pelanggan ON transaksi.No_Identitas = pelanggan.No_Identitas
-                    LEFT JOIN layanan ON transaksi.id_layanan = layanan.id_layanan
-                    ORDER BY `No_Order` DESC");
-                                        while ($hasil = mysqli_fetch_array($sql)) {
-                                        ?>
-                                    <!-- Modal for each transaction -->
-                                    <div class="modal fade" id="transactionModal<?php echo $hasil['No_Order']; ?>"
-                                        tabindex="-1" role="dialog" aria-labelledby="transactionModalLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="transactionModalLabel">Detail Transaksi
-                                                    </h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table class="table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>ID Transaksi</td>
-                                                                <td>:</td>
-                                                                <td><?php echo $hasil['No_Order']; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Nama</td>
-                                                                <td>:</td>
-                                                                <td><?php echo $hasil['Nama']; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Layanan</td>
-                                                                <td>:</td>
-                                                                <td><?php echo $hasil['nama_layanan']; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Tanggal Terima</td>
-                                                                <td>:</td>
-                                                                <td><?php echo $hasil['Tgl_Terima']; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Tanggal Ambil</td>
-                                                                <td>:</td>
-                                                                <td><?php echo $hasil['Tgl_Ambil']; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Berat</td>
-                                                                <td>:</td>
-                                                                <td><?php echo $hasil['total_berat'] . ' Kg'; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Diskon</td>
-                                                                <td>:</td>
-                                                                <td><?php echo $hasil['diskon'] . '%'; ?></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Total Bayar</td>
-                                                                <td>:</td>
-                                                                <td><?php echo 'Rp ' . number_format($hasil['Total_Bayar'], 0, ',', '.'); ?>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                    <a href="download-laporan.php?cetak=<?php echo $hasil['No_Order']; ?>"
-                                                        class="btn btn-info"><i class="bi bi-printer"></i></a><br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php
-                                        }
-                                        ?>
-
                                 </div>
                             </div>
                         </div>
@@ -244,7 +201,7 @@ if (isset($_SESSION['id'])) {
 
     <!-- Bootstrap JS, Popper.js, and jQuery -->
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 

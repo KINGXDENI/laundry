@@ -31,18 +31,18 @@ if (isset($_SESSION['id'])) {
                         <i class="bi bi-justify fs-3"></i>
                     </a>
                 </header>
-
-                <div class="page-heading">
+                <div class="page-heading d-flex justify-content-between align-items-center mb-4">
                     <h3>Data Pelanggan</h3>
+                    <a href="pelanggan_tambah.php" class="btn btn-primary btn-md">Tambah <i class="bi bi-plus"></i></a>
                 </div>
+
+
                 <div class="page-content">
                     <section class="row">
                         <div class="container">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="tombol mb-3">
-                                        <a href="tambahdatapelanggan.php"><button type="button" class="btn btn-primary btn-md">Tambah Data</button></a>
-                                    </div>
+
                                     <div class="table-responsive">
                                         <table id="table" class="table table-striped table-bordered">
                                             <thead>
@@ -70,7 +70,7 @@ if (isset($_SESSION['id'])) {
                                                         <td><?php echo $hasil['Alamat']; ?></td>
                                                         <td><?php echo $hasil['No_Hp']; ?></td>
                                                         <td style="text-align: center;">
-                                                            <a href="editdatapelanggan.php?edit=<?php echo $hasil['No_Identitas']; ?>" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                                            <a href="pelanggan_edit.php?edit=<?php echo $hasil['No_Identitas']; ?>" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                                                             <a href="#" class="btn btn-danger delete-btn" data-id="<?php echo $hasil['No_Identitas']; ?>" onclick="confirmDelete(<?php echo $hasil['No_Identitas']; ?>)"><i class="bi bi-trash"></i></a>
                                                         </td>
                                                     </tr>
@@ -112,7 +112,7 @@ if (isset($_SESSION['id'])) {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirect to the delete process
-                        window.location.href = 'proses-hapus-pelanggan.php?hapus=' + id;
+                        window.location.href = 'pelanggan_proses_hapus.php?hapus=' + id;
                     }
                 });
             }

@@ -60,8 +60,8 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                     </a>
                 </li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'pelanggan.php'
-                                            || $halaman_saat_ini == 'tambahdatapelanggan.php'
-                                            || $halaman_saat_ini == 'editdatapelanggan.php') ? 'active' : ''; ?>">
+                                            || $halaman_saat_ini == 'pelanggan_tambah.php'
+                                            || $halaman_saat_ini == 'pelanggan_edit.php') ? 'active' : ''; ?>">
                     <a href="pelanggan.php" class="sidebar-link">
                         <i class="bi bi-person-lines-fill"></i>
                         <span>Data Pelanggan</span>
@@ -74,16 +74,16 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                         <span>Transaksi Laundry</span>
                     </a>
                 </li>
-                <li class="sidebar-item <?php echo ($halaman_saat_ini == 'layanan.php') ? 'active' : ''; ?>">
-                    <a href="layanan.php" class="sidebar-link">
-                        <i class="bi bi-menu-button-wide-fill"></i>
-                        <span>Layanan</span>
-                    </a>
-                </li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'transaksi.php') ? 'active' : ''; ?>">
                     <a href="transaksi.php" class="sidebar-link">
                         <i class="bi bi-file-earmark-text-fill"></i>
                         <span>Data Transaksi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item <?php echo ($halaman_saat_ini == 'layanan.php') ? 'active' : ''; ?>">
+                    <a href="layanan.php" class="sidebar-link">
+                        <i class="bi bi-menu-button-wide-fill"></i>
+                        <span>Layanan</span>
                     </a>
                 </li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'pakaian.php'

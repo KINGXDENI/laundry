@@ -1,31 +1,36 @@
 <?php
-include "include/koneksi.php";
+include "./include/koneksi.php";
 
-$No_Order = $_POST["No_Order"];
-$Id_Pakaian = $_POST["Id_Pakaian"];
-$Jumlah_Pakaian = $_POST["Jumlah_Pakaian"];
+// Mengambil data dari form
+$no_order = isset($_POST['No_Order']) ? $_POST['No_Order'] : '';
+$id_pakaian = isset($_POST['Id_Pakaian']) ? $_POST['Id_Pakaian'] : '';
+$jumlah_pakaian = isset($_POST['Jumlah_Pakaian']) ? $_POST['Jumlah_Pakaian'] : '';
 
-//validasi
-if (trim($_POST['Id_Pakaian']) == '') {
-	$error[] = '- Jenis Pakaian harus di isi';
-}
-if (trim($_POST['Jumlah_Pakaian']) == '') {
-	$error[] = '- Jumlah Pakaian harus di isi';
+// Validasi input
+$errors = [];
+
+if (empty($id_pakaian)) {
+	$errors[] = "Jenis Pakaian harus di isi";
 }
 
-if (isset($error)) {
-	echo '<b>Error</b>: <br />' . implode('<br />', $error);
-?>
-	<script type="text/javascript">
-		setTimeout("location.href='tambahdatatransaksi.php';", 2000);
-	</script>
-<?php } else {
-	$sql = "INSERT INTO `detail_transaksi` (`No_Order`, `Id_Pakaian`, `Jumlah_Pakaian`)
-			VALUES ('$No_Order', '$Id_Pakaian', '$Jumlah_Pakaian')";
-	$kueri = mysqli_query($conn, $sql);
-	echo '<b>Data Berhasil di simpan...</b><br/>'; ?>
-	<script type="text/javascript">
-		setTimeout("location.href='tambahdatatransaksi.php';", 2000);
-	</script>
-<?php
+if (empty($jumlah_pakaian)) {
+	$errors[] = "Jumlah Pakaian harus di isi";
 }
+
+if (count($errors) > 0) {
+	foreach ($errors as $error) {
+		echo $error . "<br>";
+	}
+	exit();
+}
+
+// Menyimpan data ke database jika tidak ada error
+$sql = "INSERT INTO detail_transaksi (No_Order, Id_Pakaian, Jumlah_pakaian) VALUES ('$no_order', '$id_pakaian', '$jumlah_pakaian')";
+if (mysqli_query($conn, $sql)) {
+	echo "Detail pakaian berhasil ditambahkan!";
+	header("Location: transaksi.php");
+} else {
+	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
