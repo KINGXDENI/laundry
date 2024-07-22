@@ -1,54 +1,32 @@
 <?php
 include "include/koneksi.php";
 
-$No_Identitas = $_POST["No_Identitas"];
-$Nama = $_POST["Nama"];
-$Alamat = $_POST["Alamat"];
-$No_Hp = $_POST["No_Hp"];
+// Ambil data dari POST
+$id_layanan = $_POST["id_layanan"];
+$nama_layanan = $_POST["nama_layanan"];
+$deskripsi = $_POST["deskripsi"];
+$harga = $_POST["harga"];
+$estimasi_waktu = $_POST["estimasi_waktu"];
 
-if (empty($No_Identitas) || empty($Nama) || empty($Alamat) || empty($No_Hp)) {
-	echo "
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal!',
-            text: 'Data tidak lengkap!',
-            showConfirmButton: false,
-            timer: 2000
-        }).then(() => {
-            window.location.href = 'tambahdatapelanggan.php';
-        });
-    </script>";
-} else {
-	$sql = "INSERT INTO pelanggan (No_Identitas, Nama, Alamat, No_Hp) VALUES ('$No_Identitas', '$Nama', '$Alamat', '$No_Hp')";
-	if (mysqli_query($conn, $sql)) {
-		echo "
-        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: 'Data berhasil ditambahkan!',
-                showConfirmButton: false,
-                timer: 2000
-            }).then(() => {
-                window.location.href = 'pelanggan.php';
-            });
-        </script>";
-	} else {
-		echo "
-        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal!',
-                text: 'Terjadi kesalahan saat menambahkan data!',
-                showConfirmButton: false,
-                timer: 2000
-            }).then(() => {
-                window.location.href = 'tambahdatapelanggan.php';
-            });
-        </script>";
-	}
+// Validasi input
+if (empty($id_layanan) || empty($nama_layanan) || empty($deskripsi) || empty($harga) || empty($estimasi_waktu)) {
+    echo "<script language='javascript'>alert('Gagal di tambahkan. Semua field harus diisi.');</script>";
+    echo '<meta http-equiv="refresh" content="0; url=layanan_tambah.php">';
+    exit();
 }
+
+// Gunakan prepared statement untuk menghindari SQL Injection
+$stmt = $conn->prepare("INSERT INTO `layanan` (`id_layanan`, `nama_layanan`, `deskripsi`, `harga`, `estimasi_waktu`) VALUES (?, ?, ?, ?, ?)");
+$stmt->bind_param("sssss", $id_layanan, $nama_layanan, $deskripsi, $harga, $estimasi_waktu);
+
+if ($stmt->execute()) {
+    echo "<script language='javascript'>alert('Berhasil di tambahkan');</script>";
+    echo '<meta http-equiv="refresh" content="0; url=layanan.php">';
+} else {
+    echo "<script language='javascript'>alert('Gagal di tambahkan. Terjadi kesalahan.');</script>";
+    echo '<meta http-equiv="refresh" content="0; url=layanan_tambah.php">';
+}
+
+// Tutup statement dan koneksi
+$stmt->close();
+$conn->close();

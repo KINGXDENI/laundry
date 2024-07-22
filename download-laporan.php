@@ -95,7 +95,7 @@ ob_start();
 <body>
     <div class="container">
         <div class="header">
-            <img src="./asset/images/logo.png" alt="Logo">
+            <a href="https://imagetolink.com/ib/RxNll1GTv4"><img src="https://imagetolink.com/ib/RxNll1GTv4.png" /></a>
             <h1 style="font-family:fantasy">Amanah Laundry
             </h1>
             <h3>Laundry & Dry Cleaning</h3>

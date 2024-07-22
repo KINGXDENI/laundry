@@ -10,23 +10,6 @@ if (isset($_SESSION['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amanah Laundry</title>
     <?php include "include/header.php"; ?>
-
-    <style>
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .modal-title {
-        margin: 0;
-    }
-
-    .modal-body input,
-    .modal-body select {
-        margin-bottom: 15px;
-    }
-    </style>
 </head>
 
 <body>
@@ -53,43 +36,38 @@ if (isset($_SESSION['id'])) {
                                         <form name="form" action="proses-tambah-transaksi.php" method="POST">
                                             <?php
                                                 include "./include/koneksi.php";
-                                                $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi  ORDER BY No_Order Desc LIMIT 1");
+                                                $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi ORDER BY No_Order DESC LIMIT 1");
                                                 while ($hasil = mysqli_fetch_array($sql)) {
                                                 ?>
                                             <div class="form-group">
-                                                <label>No. Order</label>
-                                                <input type="text" class="form-control" name="No_Order"
-                                                    value="<?php echo $hasil['No_Order']; ?>" readonly>
+                                                <label for="No_Order">No. Order</label>
+                                                <input type="text" class="form-control" id="No_Order" name="No_Order">
                                             </div>
-                                            <?php
-                                                }
-                                                ?>
+                                            <?php } ?>
                                             <div class="form-group">
                                                 <label for="basicSelect">Nama Pelanggan</label>
                                                 <select class="form-select" id="basicSelect" name="No_Identitas">
                                                     <option value="#">----- Pilih Nama Pelanggan -----</option>
                                                     <?php
-                                                        $sql = mysqli_query($conn, "SELECT No_Identitas, Nama, No_Hp FROM pelanggan ORDER BY Nama");
+                                                        $sql = mysqli_query($conn, "SELECT No_Identitas, Nama FROM pelanggan ORDER BY Nama");
                                                         while ($hasil = mysqli_fetch_array($sql)) {
                                                         ?>
                                                     <option value="<?php echo $hasil['No_Identitas']; ?>">
-                                                        <?php echo $hasil['Nama'] . " (" . $hasil['No_Hp'] . ")"; ?>
-                                                    </option>
+                                                        <?php echo $hasil['Nama']; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="layananSelect">Layanan</label>
                                                 <select class="form-select" id="layananSelect" name="id_layanan"
-                                                    onchange="updateHarga()">
+                                                    onchange="updateTotal()">
                                                     <option value="">----- Pilih Layanan -----</option>
                                                     <?php
-                                                        $sql = mysqli_query($conn, "SELECT id_layanan, nama_layanan, harga, estimasi_waktu FROM layanan ORDER BY nama_layanan");
+                                                        $sql = mysqli_query($conn, "SELECT id_layanan, nama_layanan, harga FROM layanan ORDER BY nama_layanan");
                                                         while ($hasil = mysqli_fetch_array($sql)) {
                                                         ?>
                                                     <option value="<?php echo $hasil['id_layanan']; ?>"
-                                                        data-harga="<?php echo $hasil['harga']; ?>"
-                                                        data-estimasi="<?php echo $hasil['estimasi_waktu']; ?>">
+                                                        data-harga="<?php echo $hasil['harga']; ?>">
                                                         <?php echo $hasil['nama_layanan']; ?>
                                                     </option>
                                                     <?php } ?>
@@ -101,43 +79,38 @@ if (isset($_SESSION['id'])) {
                                                     name="harga_per_kg" readonly>
                                             </div>
                                             <div class="form-group">
-                                                <label for="estimasi_waktu">Estimasi Waktu:</label>
-                                                <input type="text" class="form-control" id="estimasi_waktu"
-                                                    name="estimasi_waktu" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Total Berat</label>
+                                                <label for="total_berat">Total Berat</label>
                                                 <input type="text" id="total_berat" class="form-control"
                                                     name="total_berat" placeholder="Total Berat" value="0">
                                             </div>
                                             <div class="form-group">
-                                                <label>Diskon</label>
+                                                <label for="diskon">Diskon</label>
                                                 <input type="text" id="diskon" class="form-control" name="diskon"
-                                                    placeholder="Diskon" value="0">
+                                                    placeholder="Diskon">
                                             </div>
                                             <div class="form-group">
-                                                <label>Total Bayar</label>
-                                                <input type="text" class="form-control" id="total_bayar"
-                                                    name="total_bayar" readonly>
+                                                <label for="total_bayar">Total Bayar</label>
+                                                <input type="text" class="form-control" name="total_bayar" readonly>
                                             </div>
                                             <input type="hidden" class="form-control" name="tanggal"
                                                 value="<?php echo date('Y-m-d'); ?>">
-                                            <input type="button" value="Tampil Total Bayar" onClick="updateTotal()"
-                                                class="btn btn-primary" />
-                                            <input type="submit" name="submit" value="Simpan" class="btn btn-success">
-                                            <a href="transaksi.php"><input type="button" class="btn btn-danger"
+                                            <input type="button" value="Tampil Total Bayar" onClick="tambah()"
+                                                class="btn btn-primary mb-4" />
+                                            <input type="submit" name="submit" value="Simpan"
+                                                class="btn btn-success mb-4">
+                                            <a href="transaksi.php"><input type="button" class="btn btn-danger mb-4"
                                                     value="Batal"></a>
                                         </form>
                                     </div>
-                                    <div class="col-md-6 col-md-offset-2">
+
+                                    <div class="col-md-6">
                                         <div id="pesan"></div>
-                                        <div class="tombol">
-                                            <button type="button" class="btn btn-success btn-md mt-3"
-                                                data-toggle="modal" data-target="#ModalTambah"><span
-                                                    class="glyphicon glyphicon-plus "></span> Tambah Detail
-                                                Pakaian</button>
+                                        <div class="tombol mb-3">
+                                            <button type="button" class="btn btn-success btn-md" data-toggle="modal"
+                                                data-target="#ModalTambah">
+                                                <span class="glyphicon glyphicon-plus"></span> Tambah Detail Pakaian
+                                            </button>
                                         </div>
-                                        <br>
                                         <div class="table-responsive">
                                             <table id="table" class="table table-striped table-bordered">
                                                 <thead>
@@ -150,14 +123,14 @@ if (isset($_SESSION['id'])) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                        $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi  ORDER BY No_Order Desc LIMIT 1");
+                                                        $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi ORDER BY No_Order DESC LIMIT 1");
                                                         while ($hasil = mysqli_fetch_array($sql)) {
                                                             $no = $hasil['No_Order'];
                                                         }
 
                                                         $no_o = $no + 1;
-                                                        $i = 0 + 1;
-                                                        $sql = mysqli_query($conn, "SELECT pakaian.Jenis_Pakaian, detail_transaksi.No_Order, detail_transaksi.Id_Pakaian, detail_transaksi.Jumlah_pakaian FROM detail_transaksi join pakaian on detail_transaksi.Id_Pakaian = Pakaian.Id_Pakaian Where No_Order = $no_o");
+                                                        $i = 1;
+                                                        $sql = mysqli_query($conn, "SELECT pakaian.Jenis_Pakaian, detail_transaksi.No_Order, detail_transaksi.Id_Pakaian, detail_transaksi.Jumlah_pakaian FROM detail_transaksi JOIN pakaian ON detail_transaksi.Id_Pakaian = pakaian.Id_Pakaian WHERE No_Order = $no_o");
                                                         while ($hasil = mysqli_fetch_array($sql)) {
                                                         ?>
                                                     <tr>
@@ -182,8 +155,7 @@ if (isset($_SESSION['id'])) {
                                 <!-- Modal Tambah Detail Pakaian -->
                                 <div class="modal fade" id="ModalTambah" tabindex="-1" role="dialog"
                                     aria-labelledby="ModalTambahLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-sm" role="document">
-                                        <!-- Modal content-->
+                                    <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="ModalTambahLabel">Tambah Detail Pakaian</h5>
@@ -192,45 +164,37 @@ if (isset($_SESSION['id'])) {
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
-                                                <form id="tambah" method="POST">
-                                                    <?php
-                                                        $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi ORDER BY No_Order Desc LIMIT 1");
-                                                        while ($hasil = mysqli_fetch_array($sql)) {
-                                                            $na = $hasil['No_Order'];
-                                                        }
-                                                        ?>
+                                            <form id="formTambahDetail" action="proses-tambah-detail-transaksi.php"
+                                                method="POST">
+                                                <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label>No. Order</label>
-                                                        <input type="text" class="form-control" name="No_Order"
-                                                            value="<?php echo $na + 1; ?>" readonly>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="pakaianSelect">Jenis Pakaian</label>
-                                                        <select class="form-select" id="pakaianSelect"
-                                                            name="Id_Pakaian">
-                                                            <option value="#">----- Pilih Jenis Pakaian -----</option>
+                                                        <label for="jenis_pakaian">Jenis Pakaian</label>
+                                                        <select class="form-select" id="jenis_pakaian"
+                                                            name="jenis_pakaian">
+                                                            <option value="">----- Pilih Jenis Pakaian -----</option>
                                                             <?php
-                                                                $sql = mysqli_query($conn, "SELECT * FROM pakaian ORDER BY Jenis_Pakaian");
+                                                                $sql = mysqli_query($conn, "SELECT Id_Pakaian, Jenis_Pakaian FROM pakaian ORDER BY Jenis_Pakaian");
                                                                 while ($hasil = mysqli_fetch_array($sql)) {
                                                                 ?>
                                                             <option value="<?php echo $hasil['Id_Pakaian']; ?>">
-                                                                <?php echo $hasil['Jenis_Pakaian']; ?></option>
+                                                                <?php echo $hasil['Jenis_Pakaian']; ?>
+                                                            </option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Jumlah Pakaian</label>
-                                                        <input type="text" class="form-control" name="Jumlah_Pakaian"
-                                                            placeholder="Jumlah pakaian">
+                                                        <label for="jumlah_pakaian">Jumlah Pakaian</label>
+                                                        <input type="number" class="form-control" id="jumlah_pakaian"
+                                                            name="jumlah_pakaian" required>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-success" type="submit">Simpan</button>
-                                                        <button class="btn btn-secondary" data-dismiss="modal"
-                                                            aria-hidden="true">Batal</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                                    <input type="hidden" name="no_order" value="<?php echo $no_o; ?>">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Tambah</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -240,32 +204,54 @@ if (isset($_SESSION['id'])) {
                 </section>
             </div>
 
+
+
             <?php
                 include "include/footer.php";
                 ?>
         </div>
     </div>
 
+
     <script>
-    // Function to update harga_per_kg field and estimasi_waktu field based on selected service
+    function updateTotal() {
+        var layananSelect = document.getElementById('layananSelect');
+        var totalBeratInput = document.getElementById('total_berat');
+        var diskonInput = document.getElementById('diskon');
+        var totalBayarInput = document.getElementsByName('total_bayar')[0];
+
+        var hargaPerKg = layananSelect.options[layananSelect.selectedIndex].getAttribute('data-harga');
+        var totalBerat = parseFloat(totalBeratInput.value);
+        var diskon = parseFloat(diskonInput.value);
+
+        if (!isNaN(hargaPerKg) && !isNaN(totalBerat)) {
+            var totalBayar = hargaPerKg * totalBerat;
+            if (!isNaN(diskon)) {
+                totalBayar -= diskon;
+            }
+            totalBayarInput.value = totalBayar.toFixed(2);
+        } else {
+            totalBayarInput.value = '';
+        }
+    }
+
+    function tambah() {
+        updateTotal();
+    }
+    </script>
+
+    <script>
+    // Function to update harga_per_kg field based on selected service
     function updateHarga() {
         var layananSelect = document.getElementById('layananSelect');
         var hargaPerKgInput = document.getElementById('harga_per_kg');
-        var estimasiWaktuInput = document.getElementById('estimasi_waktu');
 
         var hargaPerKg = layananSelect.options[layananSelect.selectedIndex].getAttribute('data-harga');
-        var estimasiWaktu = layananSelect.options[layananSelect.selectedIndex].getAttribute('data-estimasi');
 
         if (!isNaN(hargaPerKg)) {
             hargaPerKgInput.value = hargaPerKg;
         } else {
             hargaPerKgInput.value = '';
-        }
-
-        if (estimasiWaktu) {
-            estimasiWaktuInput.value = estimasiWaktu;
-        } else {
-            estimasiWaktuInput.value = '';
         }
     }
 
@@ -273,72 +259,6 @@ if (isset($_SESSION['id'])) {
     $('#layananSelect').change(function() {
         updateHarga();
     });
-    </script>
-
-    <script type="text/javascript">
-    d = eval(form.No_Order.value)
-    e = d + 1
-    form.No_Order.value = e
-
-    function updateTotal() {
-        var totalBerat = parseFloat(document.getElementById('total_berat').value);
-        var diskon = parseFloat(document.getElementById('diskon').value);
-        var hargaPerKg = parseFloat(document.getElementById('harga_per_kg').value);
-        var totalBayar = (totalBerat * hargaPerKg) - diskon;
-
-        if (!isNaN(totalBayar)) {
-            document.getElementById('total_bayar').value = totalBayar;
-        } else {
-            document.getElementById('total_bayar').value = 0;
-        }
-    }
-
-    $('#tambah').submit(function() {
-        $.ajax({
-            type: 'POST',
-            url: 'proses-tambah-detail-transaksi.php',
-            data: $(this).serialize(),
-            success: function(data) {
-                $("#pesan").addClass("css_pesan");
-                $("#ModalTambah").modal('hide');
-                $('#pesan').html(data);
-            }
-        })
-        return false;
-    });
-
-    function hapus(order, id) {
-        swal({
-                title: "Apa anda yakin?",
-                text: "Anda tidak akan bisa mengembalikan data yang sudah terhapus!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonClass: "btn-danger",
-                confirmButtonText: "Ya, hapus!",
-                closeOnConfirm: false
-            },
-
-            function() {
-                var no_id = id;
-                var no_order = order;
-                $.ajax({
-                    url: "crud/hapus.php",
-                    type: "GET",
-                    data: {
-                        Id_Pakaian: no_id,
-                        No_Order: no_order
-                    },
-                    success: function(data) {
-                        swal("Terhapus!", "Data berhasil dihapus.", "success");
-
-                    }
-                });
-                //document.location = url;
-                setTimeout("location.href='tambahdatatransaksi.php';", 1000);
-            }
-
-        );
-    };
     </script>
 
     <script>
@@ -363,6 +283,7 @@ if (isset($_SESSION['id'])) {
         }
     });
     </script>
+
 
 </body>
 

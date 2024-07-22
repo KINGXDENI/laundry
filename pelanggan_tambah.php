@@ -1,6 +1,22 @@
 <?php
 session_start();
 if (isset($_SESSION['id'])) {
+    include "include/koneksi.php";
+
+    // Query untuk mendapatkan nomor identitas terakhir
+    $result = mysqli_query($conn, "SELECT No_Identitas FROM pelanggan ORDER BY No_Identitas DESC LIMIT 1");
+    $row = mysqli_fetch_assoc($result);
+
+    // Mendapatkan nomor urut terakhir dan menambah 1 untuk nomor baru
+    if ($row) {
+        $last_no_identitas = $row['No_Identitas'];
+        $number = intval(substr($last_no_identitas, 2)) + 1;
+    } else {
+        $number = 1;
+    }
+
+    // Format nomor identitas baru
+    $new_no_identitas = 'P-' . str_pad($number, 2, '0', STR_PAD_LEFT);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,37 +51,46 @@ if (isset($_SESSION['id'])) {
             <div class="page-content">
                 <section class="row">
                     <div class="container">
-                        <div class="card">
+                        <div class="card mt-2">
                             <div class="card-body">
                                 <form action="pelanggan_proses_tambah.php" method="POST">
-                                    <div class="form-group">
-                                        <label for="No_Identitas">No. Identitas</label>
-                                        <input type="text" name="No_Identitas" class="form-control" id="basicInput"
-                                            placeholder="Masukan No. Identitas">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="No_Identitas">No Pelanggan</label>
+                                                <input type="text" name="No_Identitas" class="form-control"
+                                                    id="basicInput" value="<?php echo $new_no_identitas; ?>" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nama</label>
+                                                <input type="text" class="form-control" name="Nama"
+                                                    placeholder="Masukan Nama">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Alamat</label>
+                                                <input type="text" class="form-control" name="Alamat"
+                                                    placeholder="Masukan Alamat">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>No. Hp</label>
+                                                <input type="text" class="form-control" name="No_Hp"
+                                                    placeholder="Masukan No. Hp">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Nama</label>
-                                        <input type="text" class="form-control" name="Nama" placeholder="Masukan Nama">
+                                        <input type="submit" name="submit" value="Simpan" class="btn btn-primary">
+                                        <a href="pelanggan.php"><input type="button" class="btn btn-danger"
+                                                value="Batal"></a>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Alamat</label>
-                                        <input type="text" class="form-control" name="Alamat"
-                                            placeholder="Masukan Alamat">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>No. Hp</label>
-                                        <input type="text" class="form-control" name="No_Hp"
-                                            placeholder="Masukan No. Hp">
-                                    </div>
-                                    <input type="submit" name="submit" value="Simpan" class="btn btn-primary">
-                                    <a href="pelanggan.php"><input type="button" class="btn btn-danger"
-                                            value="Batal"></a>
                                 </form>
                             </div>
                         </div>
                     </div>
+                </section>
             </div>
-            </section>
             <?php
                 include "include/footer.php";
                 ?>
@@ -99,3 +124,4 @@ if (isset($_SESSION['id'])) {
 } else {
     header("location:login/index.php");
 }
+?>

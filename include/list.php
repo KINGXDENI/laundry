@@ -1,7 +1,10 @@
 <?php
 // Menentukan halaman saat ini
 $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
+
+
 ?>
+
 <div id="sidebar">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
@@ -9,8 +12,9 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                 <div class="logo">
                     <a href="index1.php"
                         style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-                        <i class="fa-solid fa-washing-machine"></i>
-                        <h1 style="font-size: 24px; font-weight: bold; margin: 0; margin-left: 5px;">Amanah Laundry</h1>
+
+                        <h1 style="font-size: 24px; font-weight: bold; margin: 0; margin-left: 5px;"><img
+                                src="../asset/img/logo/logo3.png" class="mb-1">manah <br>Laundry</h1>
                     </a>
                 </div>
 
@@ -51,14 +55,14 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
         </div>
         <div class="sidebar-menu">
             <ul class="menu">
-                <li class="sidebar-title">Menu</li>
-
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'index1.php') ? 'active' : ''; ?>">
-                    <a href="index1.php" class="sidebar-link">
+                    <a href=" index1.php" class="sidebar-link ">
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
+                <hr>
+                <li class="sidebar-title">Master</li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'pelanggan.php'
                                             || $halaman_saat_ini == 'pelanggan_tambah.php'
                                             || $halaman_saat_ini == 'pelanggan_edit.php') ? 'active' : ''; ?>">
@@ -68,22 +72,25 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                     </a>
                 </li>
                 <li
-                    class="sidebar-item <?php echo ($halaman_saat_ini == 'tambahdatatransaksi.php') ? 'active' : ''; ?>">
+                    class="sidebar-item <?php echo ($halaman_saat_ini == 'layanan.php') || ($halaman_saat_ini == 'layanan_tambah.php') || ($halaman_saat_ini == 'layanan_edit.php')  ? 'active' : ''; ?>">
+                    <a href="layanan.php" class="sidebar-link">
+                        <i class="bi bi-menu-button-wide-fill"></i>
+                        <span>Layanan</span>
+                    </a>
+                </li>
+                <li
+                    class="sidebar-item <?php echo ($halaman_saat_ini == 'tambahdatatransaksi.php') || ($halaman_saat_ini == 'editdatatransaksi.php') ? 'active' : ''; ?>">
                     <a href="tambahdatatransaksi.php" class="sidebar-link">
                         <i class="bi bi-cart-fill"></i>
                         <span>Transaksi Laundry</span>
                     </a>
                 </li>
+                <hr>
+                <li class="sidebar-title">Data</li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'transaksi.php') ? 'active' : ''; ?>">
                     <a href="transaksi.php" class="sidebar-link">
                         <i class="bi bi-file-earmark-text-fill"></i>
-                        <span>Data Transaksi</span>
-                    </a>
-                </li>
-                <li class="sidebar-item <?php echo ($halaman_saat_ini == 'layanan.php') ? 'active' : ''; ?>">
-                    <a href="layanan.php" class="sidebar-link">
-                        <i class="bi bi-menu-button-wide-fill"></i>
-                        <span>Layanan</span>
+                        <span>Transaksi</span>
                     </a>
                 </li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'pakaian.php'
@@ -91,9 +98,16 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                                             || $halaman_saat_ini == 'editdatapakaian.php') ? 'active' : ''; ?>">
                     <a href="pakaian.php" class="sidebar-link">
                         <i class="bi bi-file-earmark-text-fill"></i>
-                        <span>Data Pakaian</span>
+                        <span>Pakaian</span>
                     </a>
                 </li>
+                <li class="sidebar-item <?php echo ($halaman_saat_ini == 'laporan.php') ? 'active' : ''; ?>">
+                    <a href="laporan.php" class="sidebar-link">
+                        <i class="bi bi-file-earmark-text-fill"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <hr>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link" id="logout-link">
                         <i class="bi bi-box-arrow-right"></i>

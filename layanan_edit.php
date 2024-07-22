@@ -30,7 +30,7 @@ if (isset($_SESSION['id'])) {
             </header>
 
             <div class="page-heading">
-                <h3>Form Tambah Data Pelanggan</h3>
+                <h3>Form Edit Layanan</h3>
             </div>
             <div class="page-content">
                 <section class="row">
@@ -39,40 +39,46 @@ if (isset($_SESSION['id'])) {
                             <div class="card-body">
                                 <?php
                                     include "./include/koneksi.php";
-                                    $No_Identitas = $_GET['edit'];
+                                    $id_layanan = $_GET['edit'];
 
-                                    $sql = mysqli_query($conn, "SELECT * FROM pelanggan WHERE No_Identitas='" . $No_Identitas . "'");
+                                    $sql = mysqli_query($conn, "SELECT * FROM layanan WHERE id_layanan='" . $id_layanan . "'");
                                     while ($hasil = mysqli_fetch_array($sql)) {
                                     ?>
-                                <form action="proses-edit-pelanggan.php" method="POST">
+                                <form action="layanan_edit_proses.php" method="POST">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>No. Identitas</label>
-                                                <input type="text" class="form-control" name="No_Identitas"
-                                                    placeholder="No. Identitas" readonly="readonly"
-                                                    value="<?php echo $hasil['No_Identitas']; ?>">
+                                                <label for="id_layanan">Id Layanan</label>
+                                                <input type="text" name="id_layanan" class="form-control"
+                                                    id="basicInput" value="<?php echo $hasil['id_layanan']; ?>"
+                                                    readonly>
                                             </div>
                                             <div class="form-group">
-                                                <label>Nama</label>
-                                                <input type="text" class="form-control" name="Nama" placeholder="Nama"
-                                                    value="<?php echo $hasil['Nama']; ?>">
+                                                <label for="nama_layanan">Nama Layanan</label>
+                                                <input type="text" name="nama_layanan" class="form-control"
+                                                    id="basicInput" value="<?php echo $hasil['nama_layanan']; ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Deskripsi</label>
+                                                <textarea name="deskripsi" class="form-control"
+                                                    placeholder="Masukan Deskripsi"><?php echo $hasil['deskripsi']; ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Alamat</label>
-                                                <input type="text" class="form-control" name="Alamat"
-                                                    placeholder="Alamat" value="<?php echo $hasil['Alamat']; ?>">
+                                                <label>Harga</label>
+                                                <input type="text" class="form-control" name="harga"
+                                                    value="<?php echo $hasil['harga']; ?>">
                                             </div>
                                             <div class="form-group">
-                                                <label>No. Hp</label>
-                                                <input type="text" class="form-control" name="No_Hp"
-                                                    placeholder="No. Hp" value="<?php echo $hasil['No_Hp']; ?>">
+                                                <label>Estimasi Waktu</label>
+                                                <input type="text" class="form-control" name="estimasi_waktu"
+                                                    value="<?php echo $hasil['estimasi_waktu']; ?>">
                                             </div>
                                         </div>
+
                                     </div>
-                                    <div class="form-group">
+                                    <div class=" form-group">
                                         <input type="submit" name="submit" value="Simpan" class="btn btn-primary">
                                         <a href="pelanggan.php"><input type="button" class="btn btn-danger"
                                                 value="Batal"></a>
@@ -111,6 +117,23 @@ if (isset($_SESSION['id'])) {
                 sidebar.classList.remove('active');
             });
         }
+    });
+    </script>
+
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+
+        dropdownItems.forEach(function(item) {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                const selectedText = this.getAttribute('data-text');
+                dropdownToggle.innerHTML = selectedText;
+            });
+        });
     });
     </script>
 </body>

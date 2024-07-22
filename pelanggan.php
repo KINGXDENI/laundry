@@ -33,7 +33,6 @@ if (isset($_SESSION['id'])) {
                 </header>
                 <div class="page-heading d-flex justify-content-between align-items-center mb-4">
                     <h3>Data Pelanggan</h3>
-                    <a href="pelanggan_tambah.php" class="btn btn-primary btn-md">Tambah <i class="bi bi-plus"></i></a>
                 </div>
 
 
@@ -42,7 +41,7 @@ if (isset($_SESSION['id'])) {
                         <div class="container">
                             <div class="card">
                                 <div class="card-body">
-
+                                    <a href="pelanggan_tambah.php" class="btn btn-primary btn-md mb-3">Tambah <i class="bi bi-plus"></i></a>
                                     <div class="table-responsive">
                                         <table id="table" class="table table-striped table-bordered">
                                             <thead>

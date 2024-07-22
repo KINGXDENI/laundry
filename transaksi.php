@@ -101,12 +101,13 @@ if (isset($_SESSION['id'])) {
                                     </table>
 
                                     <?php
-                                        // Kode modal diluar dari loop
+                                        // Query untuk mendapatkan data transaksi
                                         $sql = mysqli_query($conn, "SELECT transaksi.*, pelanggan.Nama, layanan.nama_layanan 
-                    FROM transaksi 
-                    JOIN pelanggan ON transaksi.No_Identitas = pelanggan.No_Identitas
-                    LEFT JOIN layanan ON transaksi.id_layanan = layanan.id_layanan
-                    ORDER BY `No_Order` DESC");
+FROM transaksi 
+JOIN pelanggan ON transaksi.No_Identitas = pelanggan.No_Identitas
+LEFT JOIN layanan ON transaksi.id_layanan = layanan.id_layanan
+ORDER BY `No_Order` DESC");
+
                                         while ($hasil = mysqli_fetch_array($sql)) {
                                         ?>
                                     <!-- Modal for each transaction -->
@@ -139,7 +140,8 @@ if (isset($_SESSION['id'])) {
                                                             <tr>
                                                                 <td>Layanan</td>
                                                                 <td>:</td>
-                                                                <td><?php echo $hasil['nama_layanan']; ?></td>
+                                                                <td><?php echo isset($hasil['nama_layanan']) ? $hasil['nama_layanan'] : 'Tidak ada layanan'; ?>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Tanggal Terima</td>
@@ -159,7 +161,7 @@ if (isset($_SESSION['id'])) {
                                                             <tr>
                                                                 <td>Diskon</td>
                                                                 <td>:</td>
-                                                                <td><?php echo $hasil['diskon'] . '%'; ?></td>
+                                                                <td><?php echo $hasil['diskon']; ?></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Total Bayar</td>
@@ -182,6 +184,7 @@ if (isset($_SESSION['id'])) {
                                     <?php
                                         }
                                         ?>
+
 
                                 </div>
                             </div>

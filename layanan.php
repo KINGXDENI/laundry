@@ -12,10 +12,12 @@ if (isset($_SESSION['id'])) {
 
     <?php
         include "include/header.php";
-        ?>
+    ?>
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
 </head>
 
 <body>
@@ -24,7 +26,7 @@ if (isset($_SESSION['id'])) {
 
         <?php
             include "include/list.php";
-            ?>
+        ?>
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -42,13 +44,14 @@ if (isset($_SESSION['id'])) {
                             <div class="card-body">
                                 <div class="tombol mb-3">
                                     <a href="layanan_tambah.php"><button type="button"
-                                            class="btn btn-primary btn-md">Tambah Data</button></a>
+                                            class="btn btn-primary btn-md">Tambah +</button></a>
                                 </div>
                                 <div class="table-responsive">
                                     <table id="table" class="table table-striped table-bordered table-responsive">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>ID Layanan</th>
                                                 <th>Layanan</th>
                                                 <th>Deskripsi</th>
                                                 <th>Harga</th>
@@ -62,9 +65,10 @@ if (isset($_SESSION['id'])) {
                                                 $i = 1;
                                                 $sql = mysqli_query($conn, "SELECT * FROM layanan ORDER BY `id_layanan`");
                                                 while ($hasil = mysqli_fetch_array($sql)) {
-                                                ?>
+                                            ?>
                                             <tr>
                                                 <td><?php echo $i++; ?></td>
+                                                <td><?php echo $hasil['id_layanan']; ?></td>
                                                 <td><?php echo $hasil['nama_layanan']; ?></td>
                                                 <td><?php echo $hasil['deskripsi']; ?></td>
                                                 <td><?php echo 'Rp ' . number_format($hasil['harga'], 0, ',', '.'); ?>
@@ -74,14 +78,13 @@ if (isset($_SESSION['id'])) {
                                                     <a href="layanan_edit.php?edit=<?php echo $hasil['id_layanan']; ?>"
                                                         class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                                                     <a href="#" class="btn btn-danger delete-btn"
-                                                        data-id="<?php echo $hasil['id_layanan']; ?>"
-                                                        onclick="confirmDelete(<?php echo $hasil['id_layanan']; ?>)"><i
+                                                        data-id="<?php echo $hasil['id_layanan']; ?>"><i
                                                             class="bi bi-trash"></i></a>
                                                 </td>
                                             </tr>
                                             <?php
                                                 }
-                                                ?>
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -93,13 +96,26 @@ if (isset($_SESSION['id'])) {
 
             <?php
                 include "include/footer.php";
-                ?>
+            ?>
         </div>
     </div>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
     $(document).ready(function() {
         $('#table').DataTable();
+
+        // Bind delete button events
+        $('.delete-btn').on('click', function() {
+            var id = $(this).data('id');
+            console.log('Delete button clicked for ID:', id); // Debugging log
+            confirmDelete(id);
+        });
     });
 
     function confirmDelete(id) {
@@ -114,7 +130,7 @@ if (isset($_SESSION['id'])) {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = 'layanan_proses_hapus.php?hapus=' + id;
+                window.location.href = 'layanan_hapus.php?hapus=' + id;
             }
         });
     }

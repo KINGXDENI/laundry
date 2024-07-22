@@ -11,8 +11,8 @@ if (isset($_SESSION['id'])) {
     <title>Amanah Laundry</title>
 
     <?php
-    include "include/header.php";
-    ?>
+        include "include/header.php";
+        ?>
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
@@ -23,8 +23,8 @@ if (isset($_SESSION['id'])) {
     <div id="app">
 
         <?php
-      include "include/list.php";
-      ?>
+            include "include/list.php";
+            ?>
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -42,7 +42,7 @@ if (isset($_SESSION['id'])) {
                             <div class="card-body">
                                 <div class="tombol mb-3">
                                     <a href="tambahdatapakaian.php"><button type="button"
-                                            class="btn btn-primary btn-md ">Tambah Data
+                                            class="btn btn-primary btn-md ">Tambah +
                                         </button></a>
                                 </div>
                                 <table id="table" class="table table-striped table-bordered table-responsive">
@@ -56,11 +56,11 @@ if (isset($_SESSION['id'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                      include "./include/koneksi.php";
-                      $i = 0 + 1;
-                      $sql = mysqli_query($conn, "SELECT * FROM pakaian ORDER BY Id_Pakaian");
-                      while ($hasil = mysqli_fetch_array($sql)) {
-                      ?>
+                                            include "./include/koneksi.php";
+                                            $i = 0 + 1;
+                                            $sql = mysqli_query($conn, "SELECT * FROM pakaian ORDER BY Id_Pakaian");
+                                            while ($hasil = mysqli_fetch_array($sql)) {
+                                            ?>
                                         <tr>
                                             <td style="text-align: center;"><?php echo $i; ?></td>
                                             <td><?php echo $hasil['Id_Pakaian']; ?></td>
@@ -75,9 +75,9 @@ if (isset($_SESSION['id'])) {
                                             </td>
                                         </tr>
                                         <?php
-                        $i++;
-                      }
-                      ?>
+                                                $i++;
+                                            }
+                                            ?>
 
                                     </tbody>
                                 </table>
@@ -88,8 +88,8 @@ if (isset($_SESSION['id'])) {
             </div>
 
             <?php
-        include "include/footer.php";
-        ?>
+                include "include/footer.php";
+                ?>
         </div>
     </div>
 
@@ -143,6 +143,6 @@ if (isset($_SESSION['id'])) {
 </html>
 <?php
 } else {
-  header("location:login/index.php");
+    header("location:login/index.php");
 }
 ?>
