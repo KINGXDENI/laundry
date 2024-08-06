@@ -17,7 +17,6 @@ if (isset($_SESSION['id'])) {
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
 </head>
-</head>
 
 <body>
     <script src="assets/static/js/initTheme.js"></script>

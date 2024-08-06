@@ -53,6 +53,8 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                 </div>
             </div>
         </div>
+        <?php
+        if ($_SESSION['level'] == "admin") { ?>
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'index1.php') ? 'active' : ''; ?>">
@@ -64,8 +66,8 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                 <hr>
                 <li class="sidebar-title">Master</li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'pelanggan.php'
-                                            || $halaman_saat_ini == 'pelanggan_tambah.php'
-                                            || $halaman_saat_ini == 'pelanggan_edit.php') ? 'active' : ''; ?>">
+                                                || $halaman_saat_ini == 'pelanggan_tambah.php'
+                                                || $halaman_saat_ini == 'pelanggan_edit.php') ? 'active' : ''; ?>">
                     <a href="pelanggan.php" class="sidebar-link">
                         <i class="bi bi-person-lines-fill"></i>
                         <span>Data Pelanggan</span>
@@ -94,8 +96,8 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                     </a>
                 </li>
                 <li class="sidebar-item <?php echo ($halaman_saat_ini == 'pakaian.php'
-                                            || $halaman_saat_ini == 'tambahdatapakaian.php'
-                                            || $halaman_saat_ini == 'editdatapakaian.php') ? 'active' : ''; ?>">
+                                                || $halaman_saat_ini == 'tambahdatapakaian.php'
+                                                || $halaman_saat_ini == 'editdatapakaian.php') ? 'active' : ''; ?>">
                     <a href="pakaian.php" class="sidebar-link">
                         <i class="bi bi-file-earmark-text-fill"></i>
                         <span>Pakaian</span>
@@ -116,6 +118,26 @@ $halaman_saat_ini = basename($_SERVER['PHP_SELF']);
                 </li>
             </ul>
         </div>
+        <?php } elseif ($_SESSION['level'] == "user") { ?>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class="sidebar-item <?php echo ($halaman_saat_ini == 'index_user.php') ? 'active' : ''; ?>">
+                    <a href="index_user.php" class="sidebar-link ">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <hr>
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" id="logout-link">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <?php } ?>
     </div>
 </div>
 

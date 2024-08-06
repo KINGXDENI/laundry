@@ -13,10 +13,36 @@
 
     <style>
     .auth-logo img {
-        max-width: 100% !important;
+        max-width: 80% !important;
         height: auto !important;
         display: block !important;
         margin: 0 auto 20px !important;
+    }
+
+    #auth-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        background-color: #f7f7f7;
+        /* atau warna latar belakang lain sesuai keinginan Anda */
+    }
+
+    #auth-right .hero-img {
+        max-width: 100%;
+        animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
     }
     </style>
 </head>
@@ -54,13 +80,22 @@
                         <button type="submit" name="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log
                             in</button>
                     </form>
+                    <div class="text-center mt-5 text-lg fs-4">
+                        <p class="text-gray-600">Belum punya akun? <a href="register.php" class="font-bold">Daftar</a>.
+                        </p>
+                        <!-- <p><a class="font-bold" href="auth-forgot-password.html">Forgot password?</a>.</p> -->
+                    </div>
                 </div>
             </div>
             <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right">
+                    <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="200">
+                        <img src="../landing-page/assets/img/hero-img2.png" class="img-fluid animated" alt="">
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script>
