@@ -45,7 +45,9 @@ $email_user = $_SESSION['email'];
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="../landing-page/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -56,6 +58,9 @@ $email_user = $_SESSION['email'];
 
     <!-- Main CSS File -->
     <link href="../landing-page/assets/css/main.css" rel="stylesheet">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <!-- =======================================================
     * Template Name: Arsha
@@ -76,7 +81,8 @@ $email_user = $_SESSION['email'];
             <div class="row gy-4">
                 <div class="col-md-6">
                     <label for="booking-field" class="pb-2">Nomor Booking</label>
-                    <input type="text" class="form-control" name="no_booking" id="booking-field" value="<?php echo $new_booking_no; ?>" required readonly>
+                    <input type="text" class="form-control" name="no_booking" id="booking-field"
+                        value="<?php echo $new_booking_no; ?>" required readonly>
                 </div>
                 <div class="col-md-6">
                     <label for="nama-field" class="pb-2">Nama Lengkap</label>
@@ -84,7 +90,8 @@ $email_user = $_SESSION['email'];
                 </div>
                 <div class="col-md-6">
                     <label for="email-field" class="pb-2">Email</label>
-                    <input type="email" class="form-control" name="email_pelanggan" id="email-field" value="<?php echo htmlspecialchars($email_user); ?>" required readonly>
+                    <input type="email" class="form-control" name="email_pelanggan" id="email-field"
+                        value="<?php echo htmlspecialchars($email_user); ?>" required readonly>
                 </div>
                 <div class="col-md-6">
                     <label for="telepon-field" class="pb-2">Nomor Telepon</label>
@@ -123,8 +130,25 @@ $email_user = $_SESSION['email'];
     <script src="../landing-page/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="../landing-page/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Main JS File -->
     <script src="../landing-page/assets/js/main.js"></script>
+    <script>
+    <?php if (isset($_SESSION['message'])): ?>
+    Swal.fire({
+        icon: '<?php echo $_SESSION['message_type']; ?>',
+        title: '<?php echo $_SESSION['message']; ?>',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    <?php 
+                unset($_SESSION['message']);
+                unset($_SESSION['message_type']);
+            ?>
+    <?php endif; ?>
+    </script>
 
 </body>
 

@@ -29,7 +29,9 @@ $email_user = $_SESSION['email'];
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="../landing-page/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -40,14 +42,37 @@ $email_user = $_SESSION['email'];
 
     <!-- Main CSS File -->
     <link href="../landing-page/assets/css/main.css" rel="stylesheet">
+    <style>
+    .card-header-custom {
+        background-color: #3e4e6b;
+        color: white;
+    }
 
-    <!-- =======================================================
-    * Template Name: Arsha
-    * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
-    * Updated: Jun 29 2024 with Bootstrap v5.3.3
-    * Author: BootstrapMade.com
-    * License: https://bootstrapmade.com/license/
-    ======================================================== -->
+    .status-pending {
+        color: chartreuse;
+        font-weight: bold;
+    }
+
+    .status-confirmed {
+        color: green;
+        font-weight: bold;
+    }
+
+    .status-jemput {
+        color: blue;
+        font-weight: bold;
+    }
+
+    .status-proses {
+        color: aqua;
+        font-weight: bold;
+    }
+
+    .status-batal {
+        color: red;
+        font-weight: bold;
+    }
+    </style>
 </head>
 
 <body>
@@ -65,49 +90,72 @@ $email_user = $_SESSION['email'];
             if ($result->num_rows > 0) {
                 while ($hasil = $result->fetch_assoc()) {
             ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <table>
-                                    <tr>
-                                        <th>No Booking</th>
-                                        <td> :</td>
-                                        <th><?php echo $hasil['no_booking']; ?></th>
-                                    </tr>
-                                    <tr>
-                                        <td>Nama Pelanggan</td>
-                                        <td> :</td>
-                                        <td><?php echo $hasil['nama_pelanggan']; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email Pelanggan</td>
-                                        <td> :</td>
-                                        <td><?php echo $hasil['email_pelanggan']; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>No Telpon</td>
-                                        <td> :</td>
-                                        <td><?php echo $hasil['nomor_telepon']; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alamat Penjemputan</td>
-                                        <td> :</td>
-                                        <td><?php echo $hasil['alamat_penjemputan']; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jenis Layanan</td>
-                                        <td> :</td>
-                                        <td><?php echo $hasil['jenis_layanan']; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tanggal Booking</td>
-                                        <td> :</td>
-                                        <td><?php echo $hasil['tanggal_booking']; ?></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header card-header-custom">
+                        <h5 class="card-title m-0">Booking No: <?php echo $hasil['no_booking']; ?></h5>
                     </div>
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Nama Pelanggan</th>
+                                    <td><?php echo $hasil['nama_pelanggan']; ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email Pelanggan</th>
+                                    <td><?php echo $hasil['email_pelanggan']; ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">No Telpon</th>
+                                    <td><?php echo $hasil['nomor_telepon']; ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Alamat Penjemputan</th>
+                                    <td><?php echo $hasil['alamat_penjemputan']; ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Jenis Layanan</th>
+                                    <td><?php echo $hasil['jenis_layanan']; ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Tanggal Booking</th>
+                                    <td><?php echo $hasil['tanggal_booking']; ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Status</th>
+                                    <td>
+                                        <?php
+                                                $status_class = '';
+                                                if ($hasil['status'] == 'Pending') {
+                                                    $status_class = 'status-pending';
+                                                } else if ($hasil['status'] == 'Selesai') {
+                                                    $status_class = 'status-confirmed';
+                                                } elseif ($hasil['status'] == 'Dijemput') {
+                                                    $status_class = 'status-jemput';
+                                                } elseif ($hasil['status'] == 'Diproses') {
+                                                    $status_class = 'status-proses';
+                                                } elseif ($hasil['status'] == 'Dibatalkan') {
+                                                    $status_class = 'status-batal';
+                                                }
+                                                ?>
+                                        <span
+                                            class="<?php echo $status_class; ?>"><?php echo $hasil['status']; ?></span>
+                                    </td>
+                                </tr>
+                                <?php if ($hasil['status'] == 'Pending') { ?>
+                                <tr>
+                                    <td colspan="2" class="text-right">
+                                        <button class="btn btn-danger cancel-booking-btn"
+                                            data-id="<?php echo $hasil['id_booking']; ?>">Batalkan</button>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <?php
                 }
             } else {
@@ -122,7 +170,6 @@ $email_user = $_SESSION['email'];
 
     <!-- Vendor JS Files -->
     <script src="../landing-page/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="./landing-page/assets/vendor/php-email-form/validate.js"></script> -->
     <script src="../landing-page/assets/vendor/aos/aos.js"></script>
     <script src="../landing-page/assets/vendor/glightbox/js/glightbox.min.js"></script>
     <script src="../landing-page/assets/vendor/swiper/swiper-bundle.min.js"></script>
@@ -130,8 +177,57 @@ $email_user = $_SESSION['email'];
     <script src="../landing-page/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="../landing-page/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Main JS File -->
     <script src="../landing-page/assets/js/main.js"></script>
+    <script>
+    document.querySelectorAll('.cancel-booking-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const bookingId = this.dataset.id;
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, batalkan!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('cancel_booking.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id_booking: bookingId
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire(
+                                    'Dibatalkan!',
+                                    'Booking Anda telah dibatalkan.',
+                                    'success'
+                                ).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Gagal!',
+                                    'Gagal membatalkan booking. Coba lagi nanti.',
+                                    'error'
+                                );
+                            }
+                        });
+                }
+            });
+        });
+    });
+    </script>
 
 </body>
 

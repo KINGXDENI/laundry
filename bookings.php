@@ -54,10 +54,11 @@ if (isset($_SESSION['id'])) {
                                                 <th>Nama Pelanggan</th>
                                                 <th>Email Pelangan</th>
                                                 <th>No Telpon</th>
-                                                <th>Alamat Penejemputan</th>
+                                                <th>Alamat Penjemputan</th>
                                                 <th>Jenis Layanan</th>
                                                 <th>Tanggal Booking</th>
-                                                <th style="text-align: center;">Aksi</th>
+                                                <th>Status</th>
+                                                <th>aksi</th>
                                             </tr>
                                         </thead>
 
@@ -77,8 +78,40 @@ if (isset($_SESSION['id'])) {
                                                 <td><?php echo $hasil['alamat_penjemputan']; ?></td>
                                                 <td><?php echo $hasil['jenis_layanan']; ?></td>
                                                 <td><?php echo $hasil['tanggal_booking']; ?></td>
-                                                <td style="text-align: center;">
-                                                    <a href="" class="btn btn-primary">Konfirmasi</a>
+                                                <td>
+                                                    <form method="POST" action="bookings_ubah_status.php">
+                                                        <input type="hidden" name="id_booking"
+                                                            value="<?php echo $hasil['id_booking']; ?>">
+                                                        <select name="status" class="form-control">
+                                                            <option value="Pending"
+                                                                <?php if ($hasil['status'] == 'Pending') echo 'selected'; ?>>
+                                                                Pending</option>
+                                                            <option value="Dijemput"
+                                                                <?php if ($hasil['status'] == 'Dijemput') echo 'selected'; ?>>
+                                                                Dijemput</option>
+                                                            <option value="Diproses"
+                                                                <?php if ($hasil['status'] == 'Diproses') echo 'selected'; ?>>
+                                                                Diproses</option>
+                                                            <option value="Selesai"
+                                                                <?php if ($hasil['status'] == 'Selesai') echo 'selected'; ?>>
+                                                                Selesai</option>
+                                                            <option value="Dibatalkan"
+                                                                <?php if ($hasil['status'] == 'Dibatalkan') echo 'selected'; ?>>
+                                                                Dibatalkan</option>
+                                                        </select>
+                                                        <button type="submit" class="btn btn-primary mt-2"><i
+                                                                class="bi bi-check2-circle"></i></button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <form method="POST" action="bookings_hapus.php"
+                                                        onsubmit="confirmDelete(event);">
+                                                        <input type="hidden" name="id_booking"
+                                                            value="<?php echo $hasil['id_booking']; ?>">
+                                                        <button type="submit" class="btn btn-danger"><i
+                                                                class="bi bi-trash"></i></button>
+                                                    </form>
+
                                                 </td>
                                             </tr>
                                             <?php
@@ -111,23 +144,9 @@ if (isset($_SESSION['id'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-    $(document).ready(function() {
-        $('#table').DataTable();
+    function confirmDelete(event) {
+        event.preventDefault(); // Mencegah pengiriman form secara default
 
-        // Cek jika ada parameter status di URL
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('status') && urlParams.get('status') === 'success') {
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: 'Data berhasil dihapus!',
-                showConfirmButton: false,
-                timer: 2000
-            });
-        }
-    });
-
-    function confirmDelete(id) {
         Swal.fire({
             title: 'Apakah Anda yakin?',
             text: "Anda tidak akan dapat mengembalikan ini!",
@@ -139,12 +158,44 @@ if (isset($_SESSION['id'])) {
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Redirect to the delete process
-                window.location.href = 'pelanggan_proses_hapus.php?hapus=' + id;
+                // Kirim form jika konfirmasi berhasil
+                event.target.submit();
             }
         });
     }
     </script>
+
+
+
+    <script>
+    $(document).ready(function() {
+        $('#table').DataTable();
+
+        // Cek jika ada parameter status di URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('status')) {
+            const status = urlParams.get('status');
+            if (status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'Status booking berhasil diperbarui!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else if (status === 'error') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal!',
+                    text: 'Terjadi kesalahan saat menghapus booking.',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        }
+    });
+    </script>
+
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
