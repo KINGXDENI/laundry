@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
 		$_SESSION['id'] = $num2_user['id_user'];
 		$_SESSION['email'] = $email;
 		$_SESSION['level'] = 'user';
-		echo '<meta http-equiv="refresh" content="0; url=booking.php">';
+		echo '<meta http-equiv="refresh" content="0; url=./user/booking.php">';
 	} else {
 		echo "<script>alert('Email atau password salah')</script>";
 		echo '<meta http-equiv="refresh" content="0; url=login/index.php">';

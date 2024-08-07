@@ -15,9 +15,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="./landing-page/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -46,8 +44,7 @@
             <a href="index.html" class="logo d-flex align-items-center me-auto">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <!-- <img src="assets/img/logo.png" alt=""> -->
-                <img src="../asset/img/svg/amanah_logo.svg" width="40" height="auto" class="d-inline-block align-top"
-                    alt="Amanah Logo">
+                <img src="../asset/img/svg/amanah_logo.svg" width="40" height="auto" class="d-inline-block align-top" alt="Amanah Logo">
                 <h1 class="sitename">manah Laundry</h1>
             </a>
 
@@ -73,8 +70,7 @@
 
             <div class="container">
                 <div class="row gy-4">
-                    <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center"
-                        data-aos="zoom-out">
+                    <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
                         <h1>Selamat Datang di Amanah Laundry!</h1>
                         <p>Layanan Laundry Terpercaya dan Berkualitas </p>
                         <div class="d-flex">
@@ -248,16 +244,12 @@
                                 </div>
                             </div><!-- End Info Item -->
 
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus"
-                                frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen=""
-                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
 
                     <div class="col-lg-7">
-                        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up"
-                            data-aos-delay="200">
+                        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
                             <div class="row gy-4">
 
                                 <div class="col-md-6">
@@ -272,14 +264,12 @@
 
                                 <div class="col-md-12">
                                     <label for="subject-field" class="pb-2">Subject</label>
-                                    <input type="text" class="form-control" name="subject" id="subject-field"
-                                        required="">
+                                    <input type="text" class="form-control" name="subject" id="subject-field" required="">
                                 </div>
 
                                 <div class="col-md-12">
                                     <label for="message-field" class="pb-2">Message</label>
-                                    <textarea class="form-control" name="message" rows="10" id="message-field"
-                                        required=""></textarea>
+                                    <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
                                 </div>
 
                                 <div class="col-md-12 text-center">
@@ -311,8 +301,7 @@
                         <h4>Join Our Newsletter</h4>
                         <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
                         <form action="forms/newsletter.php" method="post" class="php-email-form">
-                            <div class="newsletter-form"><input type="email" name="email"><input type="submit"
-                                    value="Subscribe"></div>
+                            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
                             <div class="loading">Loading</div>
                             <div class="error-message"></div>
                             <div class="sent-message">Your subscription request has been sent. Thank you!</div>
@@ -385,8 +374,7 @@
     </footer>
 
     <!-- Scroll Top -->
-    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Preloader -->
     <div id="preloader"></div>

@@ -58,6 +58,11 @@ if (isset($_SESSION['id'])) {
                                                 <input type="text" class="form-control" name="Nama" placeholder="Nama"
                                                     value="<?php echo $hasil['Nama']; ?>">
                                             </div>
+                                            <div class="form-group mb-3">
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" name="email"
+                                                    value="<?php echo $hasil['email']; ?>" readonly>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -70,7 +75,18 @@ if (isset($_SESSION['id'])) {
                                                 <input type="text" class="form-control" name="No_Hp"
                                                     placeholder="No. Hp" value="<?php echo $hasil['No_Hp']; ?>">
                                             </div>
+                                            <div class="form-group mb-3">
+                                                <label>Foto</label>
+                                                <input type="file" class="form-control" name="foto">
+                                                <?php if (!empty($hasil['Foto'])) : ?>
+                                                <p><strong>Foto Saat Ini:</strong> <img
+                                                        src="../uploads/<?php echo $hasil['Foto']; ?>"
+                                                        alt="Foto Pelanggan" width="200"></p>
+                                                <?php endif; ?>
+                                            </div>
                                         </div>
+
+
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" name="submit" value="Simpan" class="btn btn-primary">
