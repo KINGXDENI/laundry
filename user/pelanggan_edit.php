@@ -43,29 +43,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (mysqli_query($conn, $sql)) {
+        // Menggunakan SweetAlert2 setelah halaman di-render
         echo "<script>
-            Swal.fire({
-                title: 'Sukses!',
-                text: 'Data berhasil diperbarui!',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'pelanggan_tampil.php';
-                }
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Sukses!',
+                    text: 'Data berhasil diperbarui!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'pelanggan_tampil.php';
+                    }
+                });
             });
         </script>";
     } else {
         echo "<script>
-            Swal.fire({
-                title: 'Error!',
-                text: 'Terjadi kesalahan saat memperbarui data!',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'pelanggan_tampil.php';
-                }
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Terjadi kesalahan saat memperbarui data!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'pelanggan_tampil.php';
+                    }
+                });
             });
         </script>";
     }
@@ -146,8 +151,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <label>Foto</label>
                             <input type="file" class="form-control" name="foto">
                             <?php if (!empty($pelanggan['Foto'])) : ?>
-                            <p><strong>Foto Saat Ini:</strong> <img src="../uploads/<?php echo $pelanggan['Foto']; ?>"
-                                    alt="Foto Pelanggan" width="200"></p>
+                                <p><strong>Foto Saat Ini:</strong> <img src="../uploads/<?php echo $pelanggan['Foto']; ?> "
+                                        alt="Foto Pelanggan" width="200"></p>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -174,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!-- Main JS File -->
     <script src="../landing-page/assets/js/main.js"></script>
 
-    <!-- Include your JS files here -->
+    <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>

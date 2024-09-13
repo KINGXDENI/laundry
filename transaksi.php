@@ -158,11 +158,6 @@ ORDER BY `No_Order` DESC");
                                                                 <td><?php echo $hasil['total_berat'] . ' Kg'; ?></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Diskon</td>
-                                                                <td>:</td>
-                                                                <td><?php echo $hasil['diskon']; ?></td>
-                                                            </tr>
-                                                            <tr>
                                                                 <td>Total Bayar</td>
                                                                 <td>:</td>
                                                                 <td><?php echo 'Rp ' . number_format($hasil['Total_Bayar'], 0, ',', '.'); ?>

@@ -108,8 +108,7 @@ if (isset($_SESSION['id'])) {
                                                     value="<?php echo $transaksi['total_berat']; ?>">
                                             </div>
                                             <div class="form-group">
-                                                <label>Diskon</label>
-                                                <input type="text" id="diskon" class="form-control" name="diskon"
+                                                <input type="hidden" id="diskon" class="form-control" name="diskon"
                                                     placeholder="Diskon" value="<?php echo $transaksi['diskon']; ?>">
                                             </div>
                                             <div class="form-group">

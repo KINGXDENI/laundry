@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION['id'])){
+if (isset($_SESSION['id'])) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,8 +11,8 @@ if(isset($_SESSION['id'])){
     <title>Laundry</title>
 
     <?php
-      include "include/header.php";
-    ?>
+        include "include/header.php";
+        ?>
 
     <style type="text/css">
     .css_pesan {
@@ -33,8 +33,8 @@ if(isset($_SESSION['id'])){
             </div>
             <ul class="nav navbar-nav">
                 <?php
-        include "include/list.php"
-      ?>
+                    include "include/list.php"
+                    ?>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -50,45 +50,44 @@ if(isset($_SESSION['id'])){
             <div class="col-md-4">
                 <form name="form" action="proses-edit-transaksi.php" method="POST">
                     <?php
-            include "./include/koneksi.php";
+                        include "./include/koneksi.php";
 
-            $No_Order = $_GET['edit'];
-            $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi WHERE No_Order='".$No_Order."' ");
-            while ($hasil = mysqli_fetch_array($sql)){
-              ?>
+                        $No_Order = $_GET['edit'];
+                        $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi WHERE No_Order='" . $No_Order . "' ");
+                        while ($hasil = mysqli_fetch_array($sql)) {
+                        ?>
                     <div class="form-group">
                         <label>No. Order</label>
                         <input type="text" class="form-control" name="No_Order"
                             value="<?php echo $hasil['No_Order']; ?>" readonly>
                     </div>
                     <?php
-                    }
-                ?>
+                        }
+                        ?>
                     <div class="form-group">
                         <label>Nama Pelanggan</label>
                         <select class="form-control" name="No_Identitas">
                             <?php
-                    $sql = mysqli_query($conn, "SELECT No_Identitas, Nama FROM pelanggan ORDER BY Nama");
-                    while ($hasil = mysqli_fetch_array($sql)){
-                      ?>
+                                $sql = mysqli_query($conn, "SELECT No_Identitas, Nama FROM pelanggan ORDER BY Nama");
+                                while ($hasil = mysqli_fetch_array($sql)) {
+                                ?>
                             <option value="<?php echo $hasil['No_Identitas']; ?>"><?php echo $hasil['Nama']; ?></option>
                             <?php
-                        }
-                    ?>
+                                }
+                                ?>
                         </select>
                     </div>
                     <?php
-                $sql = mysqli_query($conn, "SELECT Tgl_Terima, total_berat, diskon, Total_Bayar FROM transaksi WHERE No_Order='".$No_Order."' ");
-                while ($hasil = mysqli_fetch_array($sql)){
-                  ?>
+                        $sql = mysqli_query($conn, "SELECT Tgl_Terima, total_berat, diskon, Total_Bayar FROM transaksi WHERE No_Order='" . $No_Order . "' ");
+                        while ($hasil = mysqli_fetch_array($sql)) {
+                        ?>
                     <div class="form-group">
                         <label>Total Berat</label>
                         <input type="text" id="total_berat" class="form-control" name="total_berat"
                             placeholder="Total Berat" value="<?php echo $hasil['total_berat']; ?>">
                     </div>
                     <div class="form-group">
-                        <label>Diskon</label>
-                        <input type="text" id="diskon" class="form-control" name="diskon" placeholder="Diskon"
+                        <input type="hidden" id="diskon" class="form-control" name="diskon" placeholder="Diskon"
                             value="<?php echo $hasil['diskon']; ?>">
                     </div>
                     <div class="form-group">
@@ -96,11 +95,11 @@ if(isset($_SESSION['id'])){
                         <input type="text" class="form-control" name="total_bayar"
                             value="<?php echo $hasil['Total_Bayar']; ?>" readonly>
                     </div>
-                    <input type="hidden" class="form-control" name="tanggal"
-                        value="<?php $tgl=date('Y-m-d'); echo $tgl; ?>">
+                    <input type="hidden" class="form-control" name="tanggal" value="<?php $tgl = date('Y-m-d');
+                                        echo $tgl; ?>">
                     <?php
-                    }
-                ?>
+                        }
+                        ?>
                     <input type="button" value="Tampil Total Bayar" onClick="tambah()" class="btn btn-primary" />
                     <input type="submit" name="submit" value="Simpan" class="btn btn-success">
                     <a href="transaksi.php"><input type="button" class="btn btn-default" value="Batal"></a>
@@ -128,10 +127,10 @@ if(isset($_SESSION['id'])){
                         </thead>
                         <tbody>
                             <?php
-                    $i = 0 + 1;
-                    $sql = mysqli_query($conn, "SELECT pakaian.Jenis_Pakaian, detail_transaksi.No_Order, detail_transaksi.Id_Pakaian, detail_transaksi.Jumlah_pakaian FROM detail_transaksi join pakaian on detail_transaksi.Id_Pakaian = Pakaian.Id_Pakaian Where No_Order = $No_Order");
-                    while ($hasil = mysqli_fetch_array($sql)) {
-                 ?>
+                                $i = 0 + 1;
+                                $sql = mysqli_query($conn, "SELECT pakaian.Jenis_Pakaian, detail_transaksi.No_Order, detail_transaksi.Id_Pakaian, detail_transaksi.Jumlah_pakaian FROM detail_transaksi join pakaian on detail_transaksi.Id_Pakaian = Pakaian.Id_Pakaian Where No_Order = $No_Order");
+                                while ($hasil = mysqli_fetch_array($sql)) {
+                                ?>
                             <tr>
                                 <td style="text-align: center;"><?php echo $i; ?></td>
                                 <td><?php echo $hasil['Jenis_Pakaian']; ?></td>
@@ -142,9 +141,9 @@ if(isset($_SESSION['id'])){
                                 </td>
                             </tr>
                             <?php
-                  $i++;
-                  }
-                ?>
+                                    $i++;
+                                }
+                                ?>
 
                         </tbody>
                     </table>
@@ -167,24 +166,24 @@ if(isset($_SESSION['id'])){
                 <div class="modal-body">
                     <form id="tambah" method="POST">
                         <?php
-                $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi WHERE No_Order = $No_Order");
-                while ($hasil = mysqli_fetch_array($sql)){
-                  $na = $hasil['No_Order'];
-              }
-              ?>
+                            $sql = mysqli_query($conn, "SELECT No_Order FROM transaksi WHERE No_Order = $No_Order");
+                            while ($hasil = mysqli_fetch_array($sql)) {
+                                $na = $hasil['No_Order'];
+                            }
+                            ?>
                         <input type="text" class="form-control" name="No_Order" value="<?php echo $na;  ?>">
                         <div class="form-group">
                             <label>Jenis Pakaian</label>
                             <select class="form-control" name="Id_Pakaian">
                                 <?php
-                    $sql = mysqli_query($conn, "SELECT * FROM pakaian ORDER BY Jenis_Pakaian");
-                    while ($hasil = mysqli_fetch_array($sql)){
+                                    $sql = mysqli_query($conn, "SELECT * FROM pakaian ORDER BY Jenis_Pakaian");
+                                    while ($hasil = mysqli_fetch_array($sql)) {
 
-                  ?>
-                                <option value="<?=$hasil['Id_Pakaian'];?>"><?=$hasil['Jenis_Pakaian'];?></option>
+                                    ?>
+                                <option value="<?= $hasil['Id_Pakaian']; ?>"><?= $hasil['Jenis_Pakaian']; ?></option>
                                 <?php
-                  }
-                   ?>
+                                    }
+                                    ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -265,6 +264,6 @@ if(isset($_SESSION['id'])){
 
 </html>
 <?php
-}else{
-	header("location:login/index.php");
+} else {
+    header("location:login/index.php");
 }

@@ -58,36 +58,36 @@ if (isset($_SESSION['id'])) {
                     <div class="container">
                         <div class="card mt-2">
                             <div class="card-body">
-                                <form action="layanan_proses_tambah.php" method="POST">
+                                <form id="layananForm" action="layanan_proses_tambah.php" method="POST">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="id_layanan">ID Layanan</label>
                                                 <input type="text" name="id_layanan" class="form-control"
-                                                    id="basicInput"
+                                                    id="id_layanan"
                                                     value="<?php echo htmlspecialchars($new_id_layanan); ?>" readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label for="nama_layanan">Nama Layanan</label>
                                                 <input type="text" name="nama_layanan" class="form-control"
-                                                    id="basicInput" placeholder="Masukan Nama Layanan">
+                                                    id="nama_layanan" placeholder="Masukan Nama Layanan">
                                             </div>
                                             <div class="form-group">
                                                 <label>Deskripsi</label>
-                                                <textarea name="deskripsi" class="form-control"
+                                                <textarea name="deskripsi" class="form-control" id="deskripsi"
                                                     placeholder="Masukan Deskripsi"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Harga</label>
-                                                <input type="text" class="form-control" name="harga"
+                                                <input type="text" class="form-control" name="harga" id="harga"
                                                     placeholder="Masukan Harga">
                                             </div>
                                             <div class="form-group">
                                                 <label>Estimasi Waktu</label>
                                                 <input type="text" class="form-control" name="estimasi_waktu"
-                                                    placeholder="Masukan Estimasi Waktu">
+                                                    id="estimasi_waktu" placeholder="Masukan Estimasi Waktu">
                                             </div>
                                         </div>
                                     </div>
@@ -128,6 +128,23 @@ if (isset($_SESSION['id'])) {
         }
     });
     </script>
+
+    <script>
+    document.getElementById('layananForm').addEventListener('submit', function(event) {
+        // Ambil semua elemen input
+        var nama_layanan = document.getElementById('nama_layanan').value.trim();
+        var deskripsi = document.getElementById('deskripsi').value.trim();
+        var harga = document.getElementById('harga').value.trim();
+        var estimasi_waktu = document.getElementById('estimasi_waktu').value.trim();
+
+        // Cek apakah ada field yang kosong
+        if (nama_layanan === "" || deskripsi === "" || harga === "" || estimasi_waktu === "") {
+            alert("Semua field harus diisi!");
+            event.preventDefault(); // Mencegah pengiriman form
+        }
+    });
+    </script>
+
 </body>
 
 </html>

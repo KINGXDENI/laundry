@@ -44,46 +44,46 @@ if (isset($_SESSION['id'])) {
                                     $sql = mysqli_query($conn, "SELECT * FROM layanan WHERE id_layanan='" . $id_layanan . "'");
                                     while ($hasil = mysqli_fetch_array($sql)) {
                                     ?>
-                                <form action="layanan_edit_proses.php" method="POST">
+                                <form id="editLayananForm" action="layanan_edit_proses.php" method="POST">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="id_layanan">Id Layanan</label>
+                                                <label for="id_layanan">ID Layanan</label>
                                                 <input type="text" name="id_layanan" class="form-control"
-                                                    id="basicInput" value="<?php echo $hasil['id_layanan']; ?>"
+                                                    id="id_layanan" value="<?php echo $hasil['id_layanan']; ?>"
                                                     readonly>
                                             </div>
                                             <div class="form-group">
                                                 <label for="nama_layanan">Nama Layanan</label>
                                                 <input type="text" name="nama_layanan" class="form-control"
-                                                    id="basicInput" value="<?php echo $hasil['nama_layanan']; ?>">
+                                                    id="nama_layanan" value="<?php echo $hasil['nama_layanan']; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label>Deskripsi</label>
-                                                <textarea name="deskripsi" class="form-control"
+                                                <textarea name="deskripsi" class="form-control" id="deskripsi"
                                                     placeholder="Masukan Deskripsi"><?php echo $hasil['deskripsi']; ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Harga</label>
-                                                <input type="text" class="form-control" name="harga"
+                                                <input type="text" class="form-control" name="harga" id="harga"
                                                     value="<?php echo $hasil['harga']; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label>Estimasi Waktu</label>
                                                 <input type="text" class="form-control" name="estimasi_waktu"
-                                                    value="<?php echo $hasil['estimasi_waktu']; ?>">
+                                                    id="estimasi_waktu" value="<?php echo $hasil['estimasi_waktu']; ?>">
                                             </div>
                                         </div>
-
                                     </div>
-                                    <div class=" form-group">
+                                    <div class="form-group">
                                         <input type="submit" name="submit" value="Simpan" class="btn btn-primary">
-                                        <a href="pelanggan.php"><input type="button" class="btn btn-danger"
+                                        <a href="layanan.php"><input type="button" class="btn btn-danger"
                                                 value="Batal"></a>
                                     </div>
                                 </form>
+
                                 <?php
                                     } ?>
                             </div>
@@ -136,6 +136,23 @@ if (isset($_SESSION['id'])) {
         });
     });
     </script>
+
+    <script>
+    document.getElementById('editLayananForm').addEventListener('submit', function(event) {
+        // Ambil semua elemen input
+        var nama_layanan = document.getElementById('nama_layanan').value.trim();
+        var deskripsi = document.getElementById('deskripsi').value.trim();
+        var harga = document.getElementById('harga').value.trim();
+        var estimasi_waktu = document.getElementById('estimasi_waktu').value.trim();
+
+        // Cek apakah ada field yang kosong
+        if (nama_layanan === "" || deskripsi === "" || harga === "" || estimasi_waktu === "") {
+            alert("Semua field harus diisi!");
+            event.preventDefault(); // Mencegah pengiriman form
+        }
+    });
+    </script>
+
 </body>
 <?php
 } else {

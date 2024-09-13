@@ -44,7 +44,7 @@ if (isset($_SESSION['id'])) {
                                     $sql = mysqli_query($conn, "SELECT * FROM pelanggan WHERE No_Identitas='" . $No_Identitas . "'");
                                     while ($hasil = mysqli_fetch_array($sql)) {
                                     ?>
-                                <form action="proses-edit-pelanggan.php" method="POST">
+                                <form action="proses-edit-pelanggan.php" method="POST" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">

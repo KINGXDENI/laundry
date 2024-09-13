@@ -90,7 +90,7 @@ if (isset($_SESSION['id'])) {
                                                     <option value="<?php echo $hasil['id_layanan']; ?>"
                                                         data-harga="<?php echo $hasil['harga']; ?>"
                                                         data-estimasi="<?php echo $hasil['estimasi_waktu']; ?>">
-                                                        <?php echo $hasil['nama_layanan']; ?>
+                                                        <?php echo $hasil['nama_layanan'] . " (" . $hasil['estimasi_waktu'] . ")"; ?>
                                                     </option>
                                                     <?php } ?>
                                                 </select>
@@ -111,8 +111,7 @@ if (isset($_SESSION['id'])) {
                                                     name="total_berat" placeholder="Total Berat" value="0">
                                             </div>
                                             <div class="form-group">
-                                                <label>Diskon</label>
-                                                <input type="text" id="diskon" class="form-control" name="diskon"
+                                                <input type="hidden" id="diskon" class="form-control" name="diskon"
                                                     placeholder="Diskon" value="0">
                                             </div>
                                             <div class="form-group">
