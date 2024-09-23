@@ -31,6 +31,6 @@ if (isset($_POST['submit'])) {
 		echo '<meta http-equiv="refresh" content="0; url=./user/booking.php">';
 	} else {
 		echo "<script>alert('Email atau password salah')</script>";
-		echo '<meta http-equiv="refresh" content="0; url=login/index.php">';
+		echo '<meta http-equiv="refresh" content="0; url=Login/index.php">';
 	}
 }

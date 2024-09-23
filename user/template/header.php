@@ -2,6 +2,15 @@
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
+<style>
+/* Menyembunyikan tulisan "Amanah Laundry" di layar kecil */
+@media (max-width: 768px) {
+    .sitename {
+        display: none;
+    }
+}
+</style>
+
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
