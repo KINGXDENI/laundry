@@ -1,26 +1,21 @@
-# Menggunakan image PHP dari Docker Hub
-FROM php:8.0-cli
+FROM php:8.1-fpm
 
-# Menginstal dependensi yang diperlukan
+# Install required packages
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
+    libzip-dev \
+    && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install zip
 
-# Mengatur working directory
-WORKDIR /app
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Menyalin composer.json dan composer.lock (jika ada)
-COPY composer.json ./
+# Set the working directory
+WORKDIR /var/www
 
-# Menginstal Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Menginstal dependensi
-RUN composer install
-
-# Menyalin sisa file aplikasi
+# Copy the application files
 COPY . .
 
-# Menjalankan aplikasi
-CMD ["php", "index.php"]
+# Install PHP dependencies
+RUN composer install
