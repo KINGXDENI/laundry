@@ -3,7 +3,7 @@
 // $username = "root";
 // $password = "";
 // $database = "laundry";
-$server = "uskkokws4w48444gw48c8048";
+$server = "178.128.211.76";
 $username = "root";
 $password = "jJrI3rG74rjvqIVrD56XSfM2T44DxZAuktMEHMlHLSezuuaqB60FbLQ8eJgfi0DN";
 $database = "laundry";
