@@ -3,7 +3,7 @@
 // $username = "root";
 // $password = "";
 // $database = "laundry";
-$server = "178.128.211.76";
+$server = "uskkokws4w48444gw48c8048";
 $username = "root";
 $password = "jJrI3rG74rjvqIVrD56XSfM2T44DxZAuktMEHMlHLSezuuaqB60FbLQ8eJgfi0DN";
 $database = "laundry";
@@ -14,4 +14,3 @@ $conn = mysqli_connect($server, $username, $password, $database);
 if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
-
