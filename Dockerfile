@@ -1,6 +1,12 @@
 # Menggunakan image PHP dari Docker Hub
 FROM php:8.0-cli
 
+# Menginstal dependensi yang diperlukan
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    && docker-php-ext-install zip
+
 # Mengatur working directory
 WORKDIR /app
 
